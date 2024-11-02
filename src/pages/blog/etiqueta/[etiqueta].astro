@@ -1,0 +1,61 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro";
+import CardBlog from "@components/ui/cards/CardBlog.astro";
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import { SITE } from "@data/constants";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  const tags = [...new Set(posts.flatMap(post => post.data.tags || []))];
+
+  return tags.map(tag => tag && ({
+    params: { etiqueta: tag.toLowerCase() },
+    props: {
+      tag,
+      posts: posts.filter(post =>
+        post.data.tags?.includes(tag)
+      )
+    },
+  })).filter(Boolean);
+}
+
+const { tag, posts } = Astro.props;
+const pageTitle = `Posts etiquetados con #${tag} | ${SITE.title}`;
+---
+
+<MainLayout
+  title={pageTitle}
+  structuredData={{
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `https://xopa.dev/blog/etiqueta/${tag.toLowerCase()}`,
+    "url": `https://xopa.dev/blog/etiqueta/${tag.toLowerCase()}`,
+    "name": pageTitle,
+    "description": `Artículos etiquetados con #${tag}`,
+    "isPartOf": {
+      "@type": "WebSite",
+      "url": "https://xopa.dev",
+      "name": SITE.title,
+      "description": SITE.description_short
+    },
+    "inLanguage": "es-ES"
+  }}
+>
+  <section class="mx-auto max-w-[85rem] space-y-8 px-4 pt-16 sm:px-6 lg:px-8 2xl:max-w-full">
+    <div class="mx-auto max-w-3xl text-left sm:text-center">
+      <h1 class="block text-balance text-4xl font-bold tracking-tight text-neutral-800 dark:text-neutral-200 md:text-5xl lg:text-6xl">
+        #{tag}
+      </h1>
+      <p class="mt-4 text-pretty text-lg text-neutral-600 dark:text-neutral-400">
+        Artículos etiquetados con #{tag}
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 2xl:max-w-full">
+    <div class="grid gap-6 lg:grid-cols-2">
+      {posts.map((blogEntry) => <CardBlog blogEntry={blogEntry} />)}
+    </div>
+  </section>
+</MainLayout>
