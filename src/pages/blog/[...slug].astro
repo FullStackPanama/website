@@ -11,10 +11,11 @@ import { capitalize, formatDate } from "@utils/utils";
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import { SITE } from "@data/constants";
+import HorizontalSeparator from "@/components/ui/HorizontalSeparator.astro";
 
 // getStaticPaths is used to pre-render all routes based on the blog posts
 export async function getStaticPaths() {
-  const blogPosts = await getCollection("blog");
+  const blogPosts: CollectionEntry<"blog">[] = await getCollection("blog");
   return blogPosts.map((post) => ({
     params: { slug: post.slug },
     props: { post },
@@ -30,9 +31,12 @@ const blogPosts: CollectionEntry<"blog">[] = await getCollection("blog");
 // Note: This is a very basic way of choosing related posts, just for the purpose of the example.
 // In a production site, you might want to implement a more robust algorithm, choosing related posts based on tags, categories, dates, authors, or keywords.
 // See example: https://blog.codybrunner.com/2024/adding-related-articles-with-astro-content-collections/
-const relatedPosts: CollectionEntry<"blog">[] = blogPosts.filter(
-  (blogEntry) => blogEntry.slug !== post.slug
-);
+const relatedPosts: CollectionEntry<"blog">[] = blogPosts
+  .filter((blogEntry) => blogEntry.slug !== post.slug)
+  .filter((blogEntry) =>
+    blogEntry.data.tags?.some((tag: string) => post.data.tags?.includes(tag))
+  )
+  .slice(0, 2);
 
 const pageTitle: string = `${post.data.title} | ${SITE.title}`;
 
@@ -40,6 +44,28 @@ const pageTitle: string = `${post.data.title} | ${SITE.title}`;
 
 <MainLayout
   title={pageTitle}
+  structuredData={{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": `https://xopa.dev/blog/${post.slug}`,
+    "url": `https://xopa.dev/blog/${post.slug}`,
+    "name": pageTitle,
+    "headline": post.data.title,
+    "description": post.data.description,
+    "author": {
+      "@type": "Person",
+      "name": post.data.author,
+    },
+    "datePublished": post.data.pubDate,
+    "image": post.data.cardImage,
+    "isPartOf": {
+      "@type": "WebSite",
+      "url": "https://xopa.dev",
+      "name": SITE.title,
+      "description": SITE.description_short,
+    },
+    "inLanguage": "es-ES",
+  }}
 >
   <section class="mx-auto max-w-3xl px-4 pb-12 pt-6 sm:px-6 lg:px-8 lg:pt-10">
     <div class="max-w-2xl">
@@ -107,37 +133,48 @@ const pageTitle: string = `${post.data.title} | ${SITE.title}`;
           )
         }
       </div>
+
       <div
         class="mx-auto grid max-w-screen-lg gap-y-5 sm:flex sm:items-center sm:justify-between sm:gap-y-0"
       >
-        <!--Blog post tags-->
-        <div
-          class="flex flex-wrap gap-x-2 gap-y-1 sm:flex-nowrap sm:items-center sm:gap-y-0"
-        >
-          {
-            post.data.tags?.map((tag: string, index) => (
-              <span class="inline-flex items-center gap-x-1.5 rounded-lg bg-neutral-400/30 px-3 py-1.5 text-xs font-medium text-neutral-700 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring dark:bg-neutral-700/60 dark:text-neutral-300">
-                {capitalize(tag)}
-              </span>
-            ))
-          }
+        <div class="flex flex-wrap items-center gap-2">
+          <!-- Categoría -->
+          <a
+            href={`/blog/categoria/${post.data.category[0].toLowerCase()}`}
+            class="inline-flex items-center gap-x-1.5 rounded-lg bg-neutral-100 px-3 py-1.5 text-sm font-medium text-neutral-800 transition hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700"
+          >
+            {post.data.category[0]}
+          </a>
+
+          <!-- Separador -->
+          <span class="text-neutral-300 dark:text-neutral-600">•</span>
+
+          <!-- Tags -->
+          {post.data.tags?.map((tag: string) => (
+            <a
+              href={`/blog/etiqueta/${tag.toLowerCase()}`}
+              class="inline-flex items-center gap-x-1.5 rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-800 transition hover:bg-blue-200 dark:bg-blue-900/30 dark:text-blue-200 dark:hover:bg-blue-900/40"
+            >
+              #{capitalize(tag)}
+            </a>
+          ))}
         </div>
+
         <!--Bookmark and Share buttons-->
         <div class="flex items-center justify-end gap-x-1.5">
           <Bookmark />
-          <div
-            class="mx-3 block h-4 border-e border-neutral-400 dark:border-neutral-500"
-          >
-          </div>
+          <HorizontalSeparator />
           <div class="inline-flex">
             <SocialShare pageTitle={post.data.title} />
           </div>
         </div>
       </div>
     </div>
+
+    <!-- TODO: Habilitar esta funcionalidad -->
     <PostFeedback
-      title="Was this post helpful?"
-      firstChoice="Yes"
+      title="¿Te resultó útil este artículo?"
+      firstChoice="Sí"
       secondChoice="No"
     />
   </section>
@@ -148,7 +185,7 @@ const pageTitle: string = `${post.data.title} | ${SITE.title}`;
       <h2
         class="text-balance text-2xl font-bold text-neutral-800 dark:text-neutral-200 md:text-4xl md:leading-tight"
       >
-        Related articles
+        Artículos relacionados
       </h2>
     </div>
 
