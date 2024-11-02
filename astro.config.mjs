@@ -8,7 +8,7 @@ import starlightImageZoom from "starlight-image-zoom";
 // https://astro.build/config
 export default defineConfig({
   // https://docs.astro.build/en/guides/images/#authorizing-remote-images
-  site: 'https://fullstackpanama.pages.dev',
+  site: 'https://xopa.dev',
   image: {
     domains: ["images.unsplash.com"],
   },
@@ -24,7 +24,7 @@ export default defineConfig({
     tailwind(),
     sitemap({
       i18n: {
-        defaultLocale: "es", // All urls that don't contain `fr` after `https://screwfast.uk/` will be treated as default locale, i.e. `en`
+        defaultLocale: "es", // All urls that don't contain `xx` (language code) after `https://xopa.dev` will be treated as default locale, i.e. `es`
         locales: {
           es: "es", // The `defaultLocale` value must present in `locales` keys
         },
@@ -76,14 +76,14 @@ export default defineConfig({
           tag: "meta",
           attrs: {
             property: "og:image",
-            content: "https://fullstackpanama.pages.dev" + "/docs-social.webp"
+            content: "https://xopa.dev" + "/docs-social.webp"
           },
         },
         {
           tag: "meta",
           attrs: {
             property: "twitter:image",
-            content: "https://fullstackpanama.pages.dev" + "/docs-social.webp"
+            content: "https://xopa.dev" + "/docs-social.webp"
           },
         },
       ],
