@@ -144,7 +144,7 @@ const pageTitle = `${member.data.nombre} | ${SITE.title}`;
 
           <div class="mb-6">
             <h2 class="mb-2 text-lg font-semibold text-neutral-800 dark:text-neutral-200">
-              Sobre mí
+              Sobre mí:
             </h2>
             <p class="text-pretty text-neutral-600 dark:text-neutral-400">
               {member.data.biografia}
@@ -154,7 +154,7 @@ const pageTitle = `${member.data.nombre} | ${SITE.title}`;
           {member.data.tecnologias && member.data.tecnologias.length > 0 && (
             <div class="mb-6">
               <h2 class="mb-2 text-lg font-semibold text-neutral-800 dark:text-neutral-200">
-                Tecnologías
+                Tecnologías:
               </h2>
               <div class="flex flex-wrap gap-2">
                 {member.data.tecnologias.map((tech) => (
@@ -169,7 +169,7 @@ const pageTitle = `${member.data.nombre} | ${SITE.title}`;
           {member.data.idiomas && member.data.idiomas.length > 0 && (
             <div class="mb-6">
               <h2 class="mb-2 text-lg font-semibold text-neutral-800 dark:text-neutral-200">
-                Idiomas
+                Idiomas:
               </h2>
               <div class="flex flex-wrap gap-2">
                 {member.data.idiomas.map((idioma) => (
@@ -184,7 +184,7 @@ const pageTitle = `${member.data.nombre} | ${SITE.title}`;
           {member.data.empresa && (
             <div class="mb-6">
               <h2 class="mb-2 text-lg font-semibold text-neutral-800 dark:text-neutral-200">
-                Información Profesional
+                Empresa actual:
               </h2>
               {(() => {
                 const locationString = [
@@ -235,7 +235,7 @@ const pageTitle = `${member.data.nombre} | ${SITE.title}`;
           {posts.length > 0 && (
             <div class="mb-6">
               <h2 class="mb-2 text-lg font-semibold text-neutral-800 dark:text-neutral-200">
-                Publicaciones
+                Publicaciones:
               </h2>
               <div class="space-y-4">
                 {posts.map((post) => (
