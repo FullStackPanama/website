@@ -1,0 +1,30 @@
+---
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+
+// Fetch and randomize active members internally
+const members: CollectionEntry<'members'> = (await getCollection("members"))
+  .filter((member: CollectionEntry<"members">) => member.data.activo)
+  .sort(() => Math.random() - 0.5)
+  .slice(0, 8);
+---
+
+<div class="mt-10 md:mt-0">
+  <div class="grid grid-cols-4 gap-3 max-w-xl">
+    {members.map((member) => (
+      <a
+        href={`/miembros/${member.slug}`}
+        class="group relative block aspect-square overflow-hidden rounded-lg"
+      >
+        <Image
+          src={member.data.imagen}
+          alt={member.data.nombre}
+          class="size-full object-cover transition duration-300 group-hover:scale-110"
+          draggable={"false"}
+          format={"avif"}
+        />
+      </a>
+    ))}
+  </div>
+</div>
