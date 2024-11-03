@@ -11,7 +11,7 @@ interface Props {
   blogEntry: CollectionEntry<"blog">;
 }
 
-const member = await getEntry("members", blogEntry.data.author);
+const member = blogEntry.data.author ? await getEntry("members", blogEntry.data.author) : null;
 ---
 { member && (
   <div class="flex-shrink-0">

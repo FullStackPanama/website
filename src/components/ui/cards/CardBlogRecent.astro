@@ -11,7 +11,7 @@ interface Props {
   blogEntry: CollectionEntry<"blog">;
 }
 
-const member = await getEntry("members", blogEntry.data.author);
+const member = blogEntry.data.author ? await getEntry("members", blogEntry.data.author) : null;
 ---
 
 <!-- Root container, which is divided into 2 grid column layout for larger screens -->
@@ -39,7 +39,7 @@ const member = await getEntry("members", blogEntry.data.author);
         class="outline-none ring-zinc-500 transition duration-300 hover:text-orange-400 focus-visible:ring dark:text-neutral-300 dark:ring-zinc-200 dark:hover:text-neutral-50 dark:focus:outline-none"
         href={`/blog/${blogEntry.slug}/`}
       >
-        {blogEntry.data.description}
+        {blogEntry.data.title}
       </a>
     </h2>
     <!-- Container for the author's avatar and metadata -->

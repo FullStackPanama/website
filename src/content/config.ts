@@ -64,9 +64,9 @@ const blogCollection = defineCollection({
   type: "content",
   schema: ({ image }) => z.object ({
     title: z.string(),
-    description: z.string(),
-    contents: z.array(z.string()),
-    author: z.string(),
+    description: z.string().optional(),
+    excerpt: z.string().optional(),
+    author: z.string().optional(),
     pubDate: z.date(),
     cardImage: image(),
     cardImageAlt: z.string(),
@@ -74,11 +74,13 @@ const blogCollection = defineCollection({
     tags: z.array(z.string()).optional(),
     category: z.array(z.string()).length(1),
   }).refine(async (data) => {
-    // Verificar que el autor existe en membersCollection
-    const members = await getCollection('members');
-    const authorExists = members.some(member => member.slug === data.author);
-    if (!authorExists) {
-      throw new Error(`Author ${data.author} not found in members collection`);
+    if (data.author) {
+      // Verificar que el autor existe en membersCollection
+      const members = await getCollection('members');
+      const authorExists = members.some(member => member.slug === data.author);
+      if (!authorExists) {
+        throw new Error(`Author ${data.author} not found in members collection`);
+      }
     }
     return true;
   }, {
