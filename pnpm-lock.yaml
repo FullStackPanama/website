@@ -41,6 +41,9 @@ dependencies:
   html-minifier:
     specifier: ^4.0.0
     version: 4.0.0
+  lucide-astro:
+    specifier: ^0.454.0
+    version: 0.454.0(astro@4.6.3)
   preline:
     specifier: ^2.1.0
     version: 2.1.0
@@ -3518,6 +3521,14 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       yallist: 4.0.0
+    dev: false
+
+  /lucide-astro@0.454.0(astro@4.6.3):
+    resolution: {integrity: sha512-XVyOyFeHVCzTTamFzn5BCC7wfFKEd4wXA/ybiUDkngZvARi9SoC8HSrt+HKKZ2g91PsatxwuM+14jDm2f2Aq9w==}
+    peerDependencies:
+      astro: '>=2.7.1'
+    dependencies:
+      astro: 4.6.3(typescript@5.4.5)
     dev: false
 
   /magic-string@0.30.8:
