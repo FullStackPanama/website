@@ -36,12 +36,6 @@ export default defineConfig({
         baseUrl: 'https://github.com/fullstackpanama/website/edit/develop/',
       },
       defaultLocale: "root",
-      locales: {
-        root: {
-          label: "Español",
-          lang: "es",
-        },
-      },
       // https://starlight.astro.build/guides/sidebar/
       sidebar: [
         {
