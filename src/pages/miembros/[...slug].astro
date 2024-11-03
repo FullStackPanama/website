@@ -1,0 +1,213 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import MainLayout from "@/layouts/MainLayout.astro";
+import { Image } from "astro:assets";
+import { SITE } from "@data/constants";
+import { formatDate } from "@utils/utils";
+import { Github, Linkedin, Twitter, Globe, Briefcase, GraduationCap } from "lucide-astro";
+
+export async function getStaticPaths() {
+  const members = await getCollection("members");
+  return members.map((member) => ({
+    params: { slug: member.slug },
+    props: member,
+  }));
+}
+
+type Props = CollectionEntry<"members">;
+const member = Astro.props;
+const pageTitle = `${member.data.nombre} | ${SITE.title}`;
+---
+
+<MainLayout
+  title={pageTitle}
+  structuredData={{
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "@id": `https://xopa.dev/miembros/${member.slug}`,
+    "url": `https://xopa.dev/miembros/${member.slug}`,
+    "name": pageTitle,
+    "description": member.data.biografia,
+    "about": {
+      "@type": "Person",
+      "name": member.data.nombre,
+      "description": member.data.biografia,
+      "image": member.data.imagen,
+    },
+    "isPartOf": {
+      "@type": "WebSite",
+      "url": "https://xopa.dev",
+      "name": SITE.title,
+      "description": SITE.description_short,
+    },
+    "inLanguage": "es-ES",
+  }}
+>
+  <div class="mx-auto max-w-4xl px-4 py-10 sm:px-6 lg:px-8">
+    <!-- Card Principal -->
+    <div class="overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm dark:border-neutral-700 dark:bg-neutral-800">
+      <div class="md:flex">
+        <!-- Columna Izquierda - Foto y Redes Sociales -->
+        <div class="border-b border-neutral-200 bg-neutral-50 p-8 dark:border-neutral-700 dark:bg-neutral-800/50 md:w-1/3 md:border-b-0 md:border-e">
+          <div class="relative mx-auto mb-4 text-center">
+            <Image
+              src={member.data.imagen}
+              alt={`Foto de ${member.data.nombre}`}
+              class="mx-auto size-40 rounded-xl object-cover ring-4 ring-neutral-100 dark:ring-neutral-700"
+              draggable={"false"}
+              format={"avif"}
+            />
+            {member.data.activo && (
+              <span class="absolute end-1/3 top-2 block size-4 rounded-full border-2 border-white bg-teal-400 dark:border-neutral-700"></span>
+            )}
+          </div>
+
+          {member.data.redesSociales && (
+            <div class="flex justify-center gap-2">
+              {member.data.redesSociales.github && (
+                <a
+                  href={member.data.redesSociales.github}
+                  class="inline-flex size-10 items-center justify-center rounded-lg bg-neutral-100 text-neutral-700 transition hover:bg-neutral-200 dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-600"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Github class="size-5" />
+                </a>
+              )}
+              {member.data.redesSociales.linkedIn && (
+                <a
+                  href={member.data.redesSociales.linkedIn}
+                  class="inline-flex size-10 items-center justify-center rounded-lg bg-neutral-100 text-neutral-700 transition hover:bg-neutral-200 dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-600"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Linkedin class="size-5" />
+                </a>
+              )}
+              {member.data.redesSociales.twitter && (
+                <a
+                  href={member.data.redesSociales.twitter}
+                  class="inline-flex size-10 items-center justify-center rounded-lg bg-neutral-100 text-neutral-700 transition hover:bg-neutral-200 dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-600"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Twitter class="size-5" />
+                </a>
+              )}
+              {member.data.redesSociales.website && (
+                <a
+                  href={member.data.redesSociales.website}
+                  class="inline-flex size-10 items-center justify-center rounded-lg bg-neutral-100 text-neutral-700 transition hover:bg-neutral-200 dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-600"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Globe class="size-5" />
+                </a>
+              )}
+            </div>
+          )}
+        </div>
+
+        <!-- Columna Derecha - Información -->
+        <div class="p-8 md:w-2/3">
+          <div class="mb-6">
+            <h1 class="mb-2 text-2xl font-bold text-neutral-800 dark:text-neutral-200">
+              {member.data.nombre}
+            </h1>
+            {member.data.empresa && (
+              <p class="text-neutral-600 dark:text-neutral-400">
+                {member.data.empresa.cargo} en {member.data.empresa.nombre}
+              </p>
+            )}
+          </div>
+
+          <div class="mb-6 flex flex-wrap gap-2">
+            {member.data.disponibleParaTrabajar && (
+              <span class="inline-flex items-center gap-x-1.5 rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-800 dark:bg-green-900/30 dark:text-green-200">
+                <Briefcase class="size-4" />
+                Disponible para trabajar
+              </span>
+            )}
+            {member.data.disponibleParaMentoria && (
+              <span class="inline-flex items-center gap-x-1.5 rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-800 dark:bg-blue-900/30 dark:text-blue-200">
+                <GraduationCap class="size-4" />
+                Disponible para mentoría
+              </span>
+            )}
+          </div>
+
+          <div class="mb-6">
+            <h2 class="mb-2 text-lg font-semibold text-neutral-800 dark:text-neutral-200">
+              Sobre mí
+            </h2>
+            <p class="text-pretty text-neutral-600 dark:text-neutral-400">
+              {member.data.biografia}
+            </p>
+          </div>
+
+          {member.data.tecnologias && member.data.tecnologias.length > 0 && (
+            <div class="mb-6">
+              <h2 class="mb-2 text-lg font-semibold text-neutral-800 dark:text-neutral-200">
+                Tecnologías
+              </h2>
+              <div class="flex flex-wrap gap-2">
+                {member.data.tecnologias.map((tech) => (
+                  <span class="rounded-lg bg-neutral-100 px-3 py-1.5 text-sm font-medium text-neutral-700 dark:bg-neutral-700 dark:text-neutral-300">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {member.data.idiomas && member.data.idiomas.length > 0 && (
+            <div class="mb-6">
+              <h2 class="mb-2 text-lg font-semibold text-neutral-800 dark:text-neutral-200">
+                Idiomas
+              </h2>
+              <div class="flex flex-wrap gap-2">
+                {member.data.idiomas.map((idioma) => (
+                  <span class="rounded-lg bg-neutral-100 px-3 py-1.5 text-sm font-medium text-neutral-700 dark:bg-neutral-700 dark:text-neutral-300">
+                    {idioma}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {member.data.empresa && (
+            <div class="mb-6">
+              <h2 class="mb-2 text-lg font-semibold text-neutral-800 dark:text-neutral-200">
+                Información Profesional
+              </h2>
+              <div class="rounded-xl border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-700 dark:bg-neutral-800/50">
+                <div class="flex items-center gap-x-4">
+                  <Image
+                    src={member.data.empresa.companyLogo}
+                    alt={`Logo de ${member.data.empresa.nombre}`}
+                    class="size-16 rounded-lg object-contain"
+                  />
+                  <div>
+                    <h3 class="font-semibold text-neutral-800 dark:text-neutral-200">
+                      {member.data.empresa.nombre}
+                    </h3>
+                    <p class="text-sm text-neutral-600 dark:text-neutral-400">
+                      {member.data.empresa.cargo} • {member.data.empresa.departamento}
+                    </p>
+                    <p class="text-sm text-neutral-600 dark:text-neutral-400">
+                      {member.data.empresa.ciudad}, {member.data.empresa.pais}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div class="text-sm text-neutral-500 dark:text-neutral-400">
+            <p>Miembro desde {formatDate(member.data.fechaIngreso)}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</MainLayout>

@@ -1,21 +1,44 @@
 ---
-// Import the necessary components
-import MainLayout from "../layouts/MainLayout.astro";
-import FeaturesGeneral from "../components/sections/features/FeaturesGeneral.astro";
-import features from "../data_files/features.json";
+import MainLayout from "@/layouts/MainLayout.astro";
+import FeaturesGeneral from "@/components/sections/features/FeaturesGeneral.astro";
+import MembersGrid from "@/components/sections/members/MembersGrid.astro";
 import PrimaryCTA from "@/components/ui/buttons/PrimaryCTA.astro";
----
-<!--Utilizando MainLayout para el diseño exterior de la página y definiendo meta para SEO-->
-<MainLayout title="Sobre Nosotros | Full Stack Panamá">
-  <FeaturesGeneral
-    id="nosotros"
-    title="Sobre Nosotros"
-    subTitle="Full Stack Panamá es una comunidad vibrante de desarrolladores unidos para impulsar la innovación tecnológica en nuestro país. Juntos, estamos construyendo el futuro digital de Panamá."
-    features={features}
-  />
 
-  <PrimaryCTA
-    title="Conoce a Nuestros Miembros"
-    url="/miembros"
-  />
+import { SITE } from "@data/constants";
+import features from "../data_files/features.json";
+
+const pageTitle = `Nosotros | ${SITE.title}`;
+---
+
+<MainLayout title={pageTitle}>
+  <div class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+  <div class="space-y-6 sm:space-y-8">
+    <!-- Contenido -->
+    <FeaturesGeneral
+      id="nosotros"
+      title="Sobre Nosotros"
+      subTitle="Full Stack Panamá es una comunidad vibrante de desarrolladores unidos para impulsar la innovación tecnológica en nuestro país. Juntos, estamos construyendo el futuro digital de Panamá."
+      features={features}
+    />
+
+    <!-- Miembros -->
+    <div class="flex gap-3">
+      <MembersGrid />
+      <div class="flex flex-col gap-3 items-center">
+
+        <!-- Texto adicional -->
+        <p class="text-pretty text-neutral-600 dark:text-neutral-400">
+          Nuestra red de profesionales abarca desde desarrolladores full-stack hasta especialistas en IA, todos comprometidos con la excelencia técnica y el crecimiento continuo.
+        </p>
+
+        <!-- Enlace a miembros -->
+        <div class="max-w-sm">
+          <PrimaryCTA
+            title="Conoce a todos nuestros miembros"
+            url="/miembros"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
 </MainLayout>

@@ -121,7 +121,7 @@ const membersCollection = defineCollection({
       ciudad: z.string(),
       pais: z.enum(['', ...getCountryCodes()]),
       companyUrl: z.string(),
-      companyLogo: z.string(),
+      companyLogo: image(),
     }).optional(),
 
     // Información de Membresía

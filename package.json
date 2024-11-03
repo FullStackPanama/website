@@ -22,6 +22,7 @@
     "globby": "^14.0.1",
     "gsap": "^3.12.5",
     "html-minifier": "^4.0.0",
+    "lucide-astro": "^0.454.0",
     "preline": "^2.1.0",
     "sharp": "^0.33.3",
     "sharp-ico": "^0.1.5",
