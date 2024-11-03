@@ -4,8 +4,10 @@ import AvatarBlog from "@components/ui/avatars/AvatarBlog.astro";
 import { Image } from "astro:assets";
 import { formatDate } from "@utils/utils";
 import type { CollectionEntry } from "astro:content";
+import { getEntry } from "astro:content";
 
 const { blogEntry } = Astro.props;
+const author = await getEntry('members', blogEntry.data.author);
 
 interface Props {
   blogEntry: CollectionEntry<"blog">;
@@ -34,23 +36,33 @@ interface Props {
       format={"avif"}
     />
   </div>
-  <!-- The container for the blog author's avatar and associated metadata (author name and publication date) -->
-  <div class="absolute inset-x-0 top-0 z-10">
-    <div class="flex h-full flex-col p-4 sm:p-6">
-      <div class="flex items-center">
-        <AvatarBlog blogEntry={blogEntry} />
 
-        <div class="ms-2.5 sm:ms-4">
-          <h4 class="font-bold text-neutral-50">
-            {blogEntry.data.author}
-          </h4>
-          <p class="text-xs text-neutral-50/[.8]">
-            {formatDate(blogEntry.data.pubDate)}
-          </p>
+  <!-- The container for the blog author's avatar and associated metadata (author name and publication date) -->
+  { author && (
+    <div class="absolute inset-x-0 top-0 z-10">
+      <div class="flex h-full flex-col p-4 sm:p-6">
+        <div class="flex items-center">
+          <Image
+            src={author.data.imagen}
+            alt={`Foto de ${author.data.nombre}`}
+            class="size-10 rounded-full object-cover"
+            draggable={"false"}
+            format={"avif"}
+          />
+
+          <div class="ms-2.5 sm:ms-4">
+            <h4 class="font-bold text-neutral-50">
+              {author.data.nombre}
+            </h4>
+            <p class="text-xs text-neutral-50/[.8]">
+              {formatDate(blogEntry.data.pubDate)}
+            </p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  )}
+
   <!-- The container for the blog post's title and description -->
   <div class="absolute inset-x-0 bottom-0 z-10">
     <div class="flex h-full flex-col p-4 sm:p-6">
