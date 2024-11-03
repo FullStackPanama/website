@@ -4,32 +4,22 @@ import type { CollectionEntry } from "astro:content";
 import { getCountryByCode } from "@/utils/countries";
 import type { ICountryCode } from "@/utils/countries";
 
-const { memberEntry } = Astro.props;
-
 interface Props {
   memberEntry: CollectionEntry<"members">;
 }
+
+const { memberEntry }: Props = Astro.props;
 
 const member = memberEntry.data;
 const memberCountry = member.empresa?.pais ? getCountryByCode(member.empresa.pais) as ICountryCode : null;
 ---
 
-<!-- The following anchor tag is the main container for the card.
-     It's a link to the member detailed page.
-     The data-astro-prefetch is an Astro specific Dynamic HTML feature,
-     which automatically prefetches the linked page to speed up navigation. -->
-
-<div
-  class="group relative block rounded-xl outline-none ring-zinc-500 transition duration-500 focus-visible:ring dark:ring-zinc-200 dark:focus:outline-none"
->
-<!--
+<!-- Convertir el div exterior en un enlace -->
 <a
+  href={`/miembros/${memberEntry.slug}`}
   class="group relative block rounded-xl outline-none ring-zinc-500 transition duration-500 focus-visible:ring dark:ring-zinc-200 dark:focus:outline-none"
-  href={`/members/${memberEntry.slug}/`}
-  data-astro-prefetch
 >
--->
-  <!-- The container for the member's cover image. Uses astro:assets' Image for image source -->
+  <!-- El resto del contenido se mantiene igual -->
   <div
     class="relative h-[350px] w-full flex-shrink-0 overflow-hidden rounded-xl before:absolute before:inset-x-0 before:z-[1] before:size-full before:bg-gradient-to-t before:from-neutral-900/[.7]"
   >
@@ -43,7 +33,6 @@ const memberCountry = member.empresa?.pais ? getCountryByCode(member.empresa.pai
     />
   </div>
 
-  <!-- The container for the member details -->
   <div class="absolute inset-x-0 bottom-0 z-10">
     <div class="flex h-full flex-col p-4 sm:p-6">
       <h3
@@ -61,7 +50,4 @@ const memberCountry = member.empresa?.pais ? getCountryByCode(member.empresa.pai
       </p>
     </div>
   </div>
-<!--
 </a>
--->
-</div>
