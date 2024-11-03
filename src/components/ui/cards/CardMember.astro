@@ -12,6 +12,7 @@ const { memberEntry }: Props = Astro.props;
 
 const member = memberEntry.data;
 const memberCountry = member.pais ? getCountryByCode(member.pais) as ICountryCode : null;
+const companyCountry = member.empresa?.pais ? getCountryByCode(member.empresa.pais) as ICountryCode : null;
 ---
 
 <!-- Convertir el div exterior en un enlace -->
@@ -46,7 +47,7 @@ const memberCountry = member.pais ? getCountryByCode(member.pais) as ICountryCod
       </p>
       <p class="text-pretty text-neutral-50/[.8] text-sm">
         {member.empresa?.nombre && `${member.empresa.nombre}, `}
-        {memberCountry && `${memberCountry.name}`}
+        {companyCountry && `${companyCountry.alpha3}`}
       </p>
     </div>
   </div>
