@@ -8,14 +8,23 @@ import { Github, Linkedin, Twitter, Globe, Briefcase, GraduationCap } from "luci
 
 export async function getStaticPaths() {
   const members = await getCollection("members");
-  return members.map((member) => ({
-    params: { slug: member.slug },
-    props: member,
-  }));
+  const blogPosts = await getCollection("blog");
+
+  return members.map((member) => {
+    const memberPosts = blogPosts.filter(post => post.data.author === member.slug);
+    return {
+      params: { slug: member.slug },
+      props: { member, posts: memberPosts },
+    };
+  });
 }
 
-type Props = CollectionEntry<"members">;
-const member = Astro.props;
+type Props = {
+  member: CollectionEntry<"members">;
+  posts: CollectionEntry<"blog">[];
+};
+
+const { member, posts } = Astro.props;
 const pageTitle = `${member.data.nombre} | ${SITE.title}`;
 ---
 
@@ -220,6 +229,32 @@ const pageTitle = `${member.data.nombre} | ${SITE.title}`;
                   </div>
                 );
               })()}
+            </div>
+          )}
+
+          {posts.length > 0 && (
+            <div class="mb-6">
+              <h2 class="mb-2 text-lg font-semibold text-neutral-800 dark:text-neutral-200">
+                Publicaciones
+              </h2>
+              <div class="space-y-4">
+                {posts.map((post) => (
+                  <a
+                    href={`/blog/${post.slug}`}
+                    class="block rounded-lg border border-neutral-200 p-4 transition hover:bg-neutral-50 dark:border-neutral-700 dark:hover:bg-neutral-800/50"
+                  >
+                    <h3 class="font-medium text-neutral-800 dark:text-neutral-200">
+                      {post.data.title}
+                    </h3>
+                    <p class="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                      {post.data.description}
+                    </p>
+                    <p class="mt-2 text-xs text-neutral-500 dark:text-neutral-500">
+                      {formatDate(post.data.pubDate)}
+                    </p>
+                  </a>
+                ))}
+              </div>
             </div>
           )}
 
