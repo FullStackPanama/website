@@ -1,7 +1,7 @@
 ---
 // Import all required components and utilities
 import { Image } from "astro:assets";
-import type { CollectionEntry } from "astro:content";
+import { getEntry, type CollectionEntry } from "astro:content";
 import AvatarBlogLarge from "@components/ui/avatars/AvatarBlogLarge.astro";
 import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro";
 
@@ -10,6 +10,8 @@ const { blogEntry } = Astro.props;
 interface Props {
   blogEntry: CollectionEntry<"blog">;
 }
+
+const member = await getEntry("members", blogEntry.data.author);
 ---
 
 <!-- Root container, which is divided into 2 grid column layout for larger screens -->
@@ -46,10 +48,10 @@ interface Props {
 
       <div class="ms-3 sm:ms-4">
         <p class="font-bold text-neutral-800 dark:text-neutral-200 sm:mb-1">
-          {blogEntry.data.author}
+          {member && member.data.nombre}
         </p>
         <p class="text-xs text-neutral-500">
-          {blogEntry.data.role}
+          {member && member.data.empresa?.cargo}
         </p>
       </div>
     </div>

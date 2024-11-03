@@ -4,7 +4,7 @@ import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 
 // Fetch and randomize active members internally
-const members: CollectionEntry<'members'> = (await getCollection("members"))
+const members: CollectionEntry<'members'>[] = (await getCollection("members"))
   .filter((member: CollectionEntry<"members">) => member.data.activo)
   .sort(() => Math.random() - 0.5)
   .slice(0, 8);

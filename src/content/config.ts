@@ -103,14 +103,12 @@ const membersCollection = defineCollection({
   schema: ({ image }) => z.object ({
     // Información Personal
     nombre: z.string(),
-    imagen: image(),
+    imagen: image().refine((img) => img.width >= 100 && img.height >= 100, {
+      message: 'La imagen debe ser al menos 100x100px'
+    }),
     idiomas: z.array(z.string()).optional(),
-
-    // Información Profesional
-    biografia: z.string(),
-    tecnologias: z.array(z.string()).optional(),
-    disponibleParaTrabajar: z.boolean().default(false),
-    disponibleParaMentoria: z.boolean().default(false),
+    pais: z.enum(['', ...getCountryCodes()]).optional(),
+    ciudad: z.string().optional(),
 
     // Información de Contacto
     redesSociales: z.object({
@@ -120,15 +118,29 @@ const membersCollection = defineCollection({
       website: z.string().optional(),
     }).optional(),
 
+    // Información Profesional
+    biografia: z.string(),
+    tecnologias: z.array(z.string()).min(1).optional(),
+    disponibleParaTrabajar: z.boolean().default(false),
+    disponibleParaMentoria: z.boolean().default(false),
+
     // Información de la Empresa
     empresa: z.object({
       nombre: z.string(),
-      cargo: z.string(),
-      departamento: z.string(),
-      ciudad: z.string(),
-      pais: z.enum(['', ...getCountryCodes()]),
-      companyUrl: z.string(),
-      companyLogo: image(),
+      cargo: z.string().optional(),
+      departamento: z.string().optional(),
+      ciudad: z.string().optional(),
+      pais: z.enum(['', ...getCountryCodes()]).optional(),
+      url: z.string().optional(),
+      logo: image().optional().refine(
+        (img) => {
+          if (img) {
+            return img.width >= 100 && img.height >= 100;
+          }
+          return true;
+        }, {
+        message: 'La imagen debe ser al menos 100x100px'
+      }),
     }).optional(),
 
     // Información de Membresía

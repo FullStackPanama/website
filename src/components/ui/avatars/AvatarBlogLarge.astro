@@ -2,21 +2,24 @@
 // Import necessary components
 import { Image } from "astro:assets";
 
-import type { CollectionEntry } from "astro:content";
+import { getEntry, type CollectionEntry } from "astro:content";
 
 const { blogEntry } = Astro.props;
 
 interface Props {
   blogEntry: CollectionEntry<"blog">;
 }
----
 
-<div class="flex-shrink-0">
-  <Image
-    class="size-10 rounded-full sm:h-14 sm:w-14"
-    src={blogEntry.data.authorImage}
-    alt={blogEntry.data.authorImageAlt}
-    draggable={"false"}
-    format={"avif"}
-  />
-</div>
+const member = await getEntry("members", blogEntry.data.author);
+---
+{ member && (
+  <div class="flex-shrink-0">
+    <Image
+      class="size-10 rounded-full sm:h-14 sm:w-14"
+      src={member.data.imagen}
+      alt={member.data.nombre}
+      draggable={"false"}
+      format={"avif"}
+    />
+  </div>
+)}

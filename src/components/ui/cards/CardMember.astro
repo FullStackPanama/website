@@ -11,7 +11,7 @@ interface Props {
 const { memberEntry }: Props = Astro.props;
 
 const member = memberEntry.data;
-const memberCountry = member.empresa?.pais ? getCountryByCode(member.empresa.pais) as ICountryCode : null;
+const memberCountry = member.pais ? getCountryByCode(member.pais) as ICountryCode : null;
 ---
 
 <!-- Convertir el div exterior en un enlace -->
