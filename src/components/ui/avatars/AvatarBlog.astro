@@ -3,20 +3,24 @@
 import { Image } from "astro:assets";
 
 import type { CollectionEntry } from "astro:content";
+import { getEntry } from "astro:content";
 
 const { blogEntry } = Astro.props;
 
 interface Props {
   blogEntry: CollectionEntry<"blog">;
 }
----
 
-<div class="flex-shrink-0">
-  <Image
-    class="size-[46px] rounded-full border-2 border-neutral-50"
-    src={blogEntry.data.authorImage}
-    alt={blogEntry.data.authorImageAlt}
-    draggable={"false"}
-    format={"avif"}
-  />
-</div>
+const member = await getEntry("members", blogEntry.data.author);
+---
+{ member && (
+  <div class="flex-shrink-0">
+    <Image
+      class="size-[46px] rounded-full border-2 border-neutral-50"
+      src={member.data.imagen}
+      alt={member.data.nombre}
+      draggable={"false"}
+      format={"avif"}
+    />
+  </div>
+)}

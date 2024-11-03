@@ -10,6 +10,8 @@ idiomas: ['Español', 'Inglés']
 # Puede usar cualquier formato de imagen (jpg, png, webp, etc.)
 # Evite usar imágenes muy grandes para optimizar el rendimiento
 imagen: "@memberImages/maria-gonzalez.jpg"
+pais: "PA"
+ciudad: "David"
 
 # Información Profesional
 biografia: "Desarrolladora Full Stack con una pasión por resolver problemas complejos y entregar soluciones centradas en el usuario."
@@ -35,11 +37,11 @@ empresa: {
   ciudad: "David",
   # Código de país ISO de dos letras
   pais: "PA",
-  companyUrl: "https://barustudio.com",
+  url: "https://barustudio.com",
   # Agregar el logo de la empresa al directorio src/images/companyLogos/nombre-de-la-empresa.jpg
   # Puede usar cualquier formato de imagen (jpg, png, webp, etc.)
   # Evite usar imágenes muy grandes para optimizar el rendimiento
-  companyLogo: "@companyLogos/opactic.jpg"
+  logo: "@companyLogos/opactic.jpg"
 }
 
 # Información de membresía en la plataforma

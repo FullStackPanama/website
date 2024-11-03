@@ -34,11 +34,8 @@ const footerLinks = [
 
 // Un objeto de enlaces para iconos sociales
 export const socialLinks = {
-  // facebook: "https://www.facebook.com/fullstackpanama",
-  // x: "https://twitter.com/fullstackpanama",
   github: "https://github.com/fullstackpanama",
   whatsapp: "https://chat.whatsapp.com/CTVgLYNu1sqGH4pkb5wLw0",
-  // instagram: "https://www.instagram.com/fullstackpanama",
 };
 
 export default {
