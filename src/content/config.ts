@@ -67,9 +67,6 @@ const blogCollection = defineCollection({
     description: z.string(),
     contents: z.array(z.string()),
     author: z.string(),
-    role: z.string().optional(),
-    authorImage: image(),
-    authorImageAlt: z.string(),
     pubDate: z.date(),
     cardImage: image(),
     cardImageAlt: z.string(),
@@ -79,7 +76,6 @@ const blogCollection = defineCollection({
   }).refine(async (data) => {
     // Verificar que el autor existe en membersCollection
     const members = await getCollection('members');
-    console.log(members);
     const authorExists = members.some(member => member.slug === data.author);
     if (!authorExists) {
       throw new Error(`Author ${data.author} not found in members collection`);
