@@ -23,6 +23,8 @@ export async function getStaticPaths() {
 // Get the current post's data
 const { post } = Astro.props;
 
+const { Content } = await post.render();
+
 // Get all blog posts
 const blogPosts: CollectionEntry<"blog">[] = await getCollection("blog");
 
@@ -40,7 +42,7 @@ const relatedPosts: CollectionEntry<"blog">[] = blogPosts
 const pageTitle: string = `${post.data.title} | ${SITE.title}`;
 
 // Obtener la información del autor desde membersCollection
-const author = await getEntry('members', post.data.author);
+const author = post.data.author ? await getEntry('members', post.data.author) : null;
 
 ---
 
@@ -72,21 +74,25 @@ const author = await getEntry('members', post.data.author);
   <section class="mx-auto max-w-3xl px-4 pb-12 pt-6 sm:px-6 lg:px-8 lg:pt-10">
     <div class="max-w-2xl">
       <!-- Author info -->
-      {author && (
-        <div class="mb-6 flex items-center justify-between">
-          <div class="flex w-full gap-x-5 sm:items-center sm:gap-x-3">
+      <div class="mb-6 flex items-center justify-between">
+        <div class="flex w-full gap-x-5 sm:items-center sm:gap-x-3">
+          <!-- Foto del autor -->
+          { author && (
             <div class="flex-shrink-0">
               <Image
-                src={author.data.imagen}
-                alt={`Foto de ${author.data.nombre}`}
-                class="size-12 rounded-full object-cover"
-                draggable={"false"}
-                format={"avif"}
+              src={author.data.imagen}
+              alt={`Foto de ${author.data.nombre}`}
+              class="size-12 rounded-full object-cover"
+              draggable={"false"}
+              format={"avif"}
               />
             </div>
-            <div class="grow">
-              <div class="flex items-center justify-between gap-x-2">
-                <div>
+          )}
+          <div class="grow">
+            <div class="flex items-center justify-between gap-x-2">
+              <div>
+                <!-- Nombre del autor -->
+                { author && (
                   <div class="hs-tooltip inline-block [--placement:bottom] [--trigger:hover]">
                     <a
                       href={`/miembros/${author.slug}`}
@@ -95,20 +101,21 @@ const author = await getEntry('members', post.data.author);
                       {author.data.nombre}
                     </a>
                   </div>
-                  <ul class="text-xs text-neutral-500">
-                    <li class="relative inline-block pe-6 before:absolute before:end-2 before:top-1/2 before:size-1 before:-translate-y-1/2 before:rounded-full before:bg-neutral-300 last:pe-0 last-of-type:before:hidden dark:text-neutral-400 dark:before:bg-neutral-600">
-                      {formatDate(post.data.pubDate)}
-                    </li>
-                    <li class="relative inline-block pe-6 before:absolute before:end-2 before:top-1/2 before:size-1 before:-translate-y-1/2 before:rounded-full before:bg-neutral-300 last:pe-0 last-of-type:before:hidden dark:text-neutral-400 dark:before:bg-neutral-600">
-                      {post.data.readTime} min read
-                    </li>
-                  </ul>
-                </div>
+                )}
+                <!-- Datos de la publicación -->
+                <ul class="text-xs text-neutral-500">
+                  <li class="relative inline-block pe-6 before:absolute before:end-2 before:top-1/2 before:size-1 before:-translate-y-1/2 before:rounded-full before:bg-neutral-300 last:pe-0 last-of-type:before:hidden dark:text-neutral-400 dark:before:bg-neutral-600">
+                    {formatDate(post.data.pubDate)}
+                  </li>
+                  <li class="relative inline-block pe-6 before:absolute before:end-2 before:top-1/2 before:size-1 before:-translate-y-1/2 before:rounded-full before:bg-neutral-300 last:pe-0 last-of-type:before:hidden dark:text-neutral-400 dark:before:bg-neutral-600">
+                    {post.data.readTime} min read
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
         </div>
-      )}
+      </div>
 
       <!--Blog post title-->
       <h2
@@ -118,28 +125,19 @@ const author = await getEntry('members', post.data.author);
       </h2>
       <!--Blog post contents-->
       <div class="mb-5 space-y-5 md:mb-8 md:space-y-8">
-        {
-          post.data.contents.map((content: string, index: any) =>
-            index === 1 ? (
-              <>
-                <p class="text-pretty text-lg text-neutral-700 dark:text-neutral-300">
-                  {content}
-                </p>
-                <Image
-                  class="w-full rounded-xl object-cover"
-                  src={post.data.cardImage}
-                  alt={post.data.cardImageAlt}
-                  draggable={"false"}
-                  format={"avif"}
-                />
-              </>
-            ) : (
-              <p class="text-pretty text-lg text-neutral-700 dark:text-neutral-300">
-                {content}
-              </p>
-            )
-          )
-        }
+        {post.data.excerpt && (
+          <p class="text-pretty text-lg text-neutral-700 dark:text-neutral-300">
+            {post.data.excerpt}
+          </p>
+        )}
+        <Image
+          class="w-full rounded-xl object-cover"
+          src={post.data.cardImage}
+          alt={post.data.cardImageAlt}
+          draggable={"false"}
+          format={"avif"}
+        />
+        <Content />
       </div>
 
       <div

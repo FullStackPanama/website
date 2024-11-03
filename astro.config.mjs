@@ -95,4 +95,28 @@ export default defineConfig({
     clientPrerender: true,
     directRenderScript: true,
   },
+  markdown: {
+    shikiConfig: {
+      // Choose a dark theme for code blocks
+      theme: 'one-dark-pro', // or any other dark theme you prefer
+      // Or use different themes for light/dark mode
+      themes: {
+        light: 'github-light',
+        dark: 'one-dark-pro',
+      },
+      // Add custom styling
+      transformers: [{
+        pre(node) {
+          // Add custom CSS classes to the pre element
+          node.properties.class = 'overflow-x-auto rounded-lg bg-neutral-900 dark:bg-neutral-950 p-4';
+        },
+        code(node) {
+          // Add custom CSS classes to the code element
+          node.properties.class = 'text-sm';
+        }
+      }],
+      // Enable word wrap
+      wrap: true,
+    },
+  },
 });

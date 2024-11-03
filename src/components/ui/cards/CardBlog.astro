@@ -7,7 +7,7 @@ import type { CollectionEntry } from "astro:content";
 import { getEntry } from "astro:content";
 
 const { blogEntry } = Astro.props;
-const author = await getEntry('members', blogEntry.data.author);
+const author = blogEntry.data.author ? await getEntry('members', blogEntry.data.author) : null;
 
 interface Props {
   blogEntry: CollectionEntry<"blog">;
@@ -71,9 +71,11 @@ interface Props {
       >
         {blogEntry.data.title}
       </h3>
-      <p class="mt-2 text-pretty text-neutral-50/[.8]">
-        {blogEntry.data.description}
-      </p>
+      {blogEntry.data.description && (
+        <p class="mt-2 text-pretty text-neutral-50/[.8]">
+          {blogEntry.data.description}
+        </p>
+      )}
     </div>
   </div>
 </a>
