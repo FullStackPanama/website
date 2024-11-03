@@ -1,7 +1,7 @@
 ---
 title: "Maximizing Efficiency with ScrewFast's Cutting-Edge Tools"
 description: "Innovating Construction Efficiency with Precision Tools & Support"
-author: "Jacob"
+author: "template"
 authorImage: "@/images/blog/jacob.avif"
 authorImageAlt: "Avatar Description"
 pubDate: 2024-02-06

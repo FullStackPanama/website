@@ -1,7 +1,7 @@
 ---
 title: "Enhancing Safety and Workmanship with ScrewFast Construction Services"
 description: "Quality construction services for lasting results"
-author: "Brad"
+author: "template"
 authorImage: "@/images/blog/brad.avif"
 authorImageAlt: "Avatar Description"
 pubDate: 2024-02-10

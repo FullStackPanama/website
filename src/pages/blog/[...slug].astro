@@ -8,7 +8,7 @@ import SocialShare from "@components/ui/buttons/SocialShare.astro";
 import PostFeedback from "@components/ui/feedback/PostFeedback.astro";
 import { Image } from "astro:assets";
 import { capitalize, formatDate } from "@utils/utils";
-import { getCollection } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import { SITE } from "@data/constants";
 import HorizontalSeparator from "@/components/ui/HorizontalSeparator.astro";
@@ -40,6 +40,9 @@ const relatedPosts: CollectionEntry<"blog">[] = blogPosts
 
 const pageTitle: string = `${post.data.title} | ${SITE.title}`;
 
+// Obtener la información del autor desde membersCollection
+const author = await getEntry('members', post.data.author);
+
 ---
 
 <MainLayout
@@ -69,39 +72,45 @@ const pageTitle: string = `${post.data.title} | ${SITE.title}`;
 >
   <section class="mx-auto max-w-3xl px-4 pb-12 pt-6 sm:px-6 lg:px-8 lg:pt-10">
     <div class="max-w-2xl">
-      <div class="mb-6 flex items-center justify-between">
-        <div class="flex w-full gap-x-5 sm:items-center sm:gap-x-3">
-          <AvatarBlogLarge blogEntry={post} />
-          <div class="grow">
-            <div class="flex items-center justify-between gap-x-2">
-              <div>
-                <div
-                  class="hs-tooltip inline-block [--placement:bottom] [--trigger:hover]"
-                >
-                  <!--Post metadata and author info-->
-                  <span
-                    class="font-bold text-neutral-700 dark:text-neutral-300"
-                  >
-                    {post.data.author}
-                  </span>
+      <!-- Author info -->
+      {author && (
+        <div class="mb-6 flex items-center justify-between">
+          <div class="flex w-full gap-x-5 sm:items-center sm:gap-x-3">
+            <div class="flex-shrink-0">
+              <Image
+                src={author.data.imagen}
+                alt={`Foto de ${author.data.nombre}`}
+                class="size-12 rounded-full object-cover"
+                draggable={"false"}
+                format={"avif"}
+              />
+            </div>
+            <div class="grow">
+              <div class="flex items-center justify-between gap-x-2">
+                <div>
+                  <div class="hs-tooltip inline-block [--placement:bottom] [--trigger:hover]">
+                    <a
+                      href={`/miembros/${author.slug}`}
+                      class="font-bold text-neutral-700 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-neutral-100"
+                    >
+                      {author.data.nombre}
+                    </a>
+                  </div>
+                  <ul class="text-xs text-neutral-500">
+                    <li class="relative inline-block pe-6 before:absolute before:end-2 before:top-1/2 before:size-1 before:-translate-y-1/2 before:rounded-full before:bg-neutral-300 last:pe-0 last-of-type:before:hidden dark:text-neutral-400 dark:before:bg-neutral-600">
+                      {formatDate(post.data.pubDate)}
+                    </li>
+                    <li class="relative inline-block pe-6 before:absolute before:end-2 before:top-1/2 before:size-1 before:-translate-y-1/2 before:rounded-full before:bg-neutral-300 last:pe-0 last-of-type:before:hidden dark:text-neutral-400 dark:before:bg-neutral-600">
+                      {post.data.readTime} min read
+                    </li>
+                  </ul>
                 </div>
-                <ul class="text-xs text-neutral-500">
-                  <li
-                    class="relative inline-block pe-6 before:absolute before:end-2 before:top-1/2 before:size-1 before:-translate-y-1/2 before:rounded-full before:bg-neutral-300 last:pe-0 last-of-type:before:hidden dark:text-neutral-400 dark:before:bg-neutral-600"
-                  >
-                    {formatDate(post.data.pubDate)}
-                  </li>
-                  <li
-                    class="relative inline-block pe-6 before:absolute before:end-2 before:top-1/2 before:size-1 before:-translate-y-1/2 before:rounded-full before:bg-neutral-300 last:pe-0 last-of-type:before:hidden dark:text-neutral-400 dark:before:bg-neutral-600"
-                  >
-                    {post.data.readTime} min read
-                  </li>
-                </ul>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
+
       <!--Blog post title-->
       <h2
         class="mb-3 text-2xl font-bold text-neutral-800 dark:text-neutral-200 md:text-3xl"

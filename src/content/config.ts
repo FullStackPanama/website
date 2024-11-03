@@ -1,6 +1,6 @@
 // https://docs.astro.build/en/guides/content-collections/#defining-collections
 
-import { z, defineCollection } from 'astro:content';
+import { z, defineCollection, getCollection } from 'astro:content';
 import { docsSchema } from '@astrojs/starlight/schema';
 import { getCountryCodes } from '@/utils/countries';
 
@@ -76,6 +76,17 @@ const blogCollection = defineCollection({
     readTime: z.number(),
     tags: z.array(z.string()).optional(),
     category: z.array(z.string()).length(1),
+  }).refine(async (data) => {
+    // Verificar que el autor existe en membersCollection
+    const members = await getCollection('members');
+    console.log(members);
+    const authorExists = members.some(member => member.slug === data.author);
+    if (!authorExists) {
+      throw new Error(`Author ${data.author} not found in members collection`);
+    }
+    return true;
+  }, {
+    message: "Author must exist in members collection"
   }),
 });
 
