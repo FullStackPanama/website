@@ -120,9 +120,13 @@ const pageTitle = `${member.data.nombre} | ${SITE.title}`;
             <h1 class="mb-2 text-2xl font-bold text-neutral-800 dark:text-neutral-200">
               {member.data.nombre}
             </h1>
-            {member.data.empresa && (
+            {member.data.empresa ? (
               <p class="text-neutral-600 dark:text-neutral-400">
-                {member.data.empresa.cargo}
+                {member.data.empresa?.cargo}
+              </p>
+            ) : member.data.profesion && (
+              <p class="text-neutral-600 dark:text-neutral-400">
+                {member.data.profesion}
               </p>
             )}
           </div>
