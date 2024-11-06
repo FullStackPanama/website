@@ -33,7 +33,7 @@ export default defineConfig({
     starlight({
       title: 'FullStack Panama Docs',
       editLink: {
-        baseUrl: 'https://github.com/fullstackpanama/website/edit/develop/',
+        baseUrl: 'https://github.com/fullstackpanama/website/edit/main/',
       },
       defaultLocale: "root",
       // https://starlight.astro.build/guides/sidebar/

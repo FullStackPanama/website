@@ -26,7 +26,7 @@ const footerLinks = [
     links: [
       { name: "Blog", url: "/blog" },
       { name: "FAQ", url: "/faq" },
-      { name: "Tutoriales", url: "/tutoriales" },
+      { name: "Tutoriales", url: "/docs" },
       { name: "Oportunidades Laborales", url: "/empleos" },
     ],
   },
