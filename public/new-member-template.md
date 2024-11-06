@@ -14,8 +14,9 @@ pais: "PA"
 ciudad: "David"
 
 # Información Profesional
+profesion: "Desarrolladora Full Stack" # opcional
 biografia: "Desarrolladora Full Stack con una pasión por resolver problemas complejos y entregar soluciones centradas en el usuario."
-tecnologias: ['Ruby on Rails', 'JavaScript', 'React', 'SQL', 'Docker', 'Vue.js', 'GraphQL']
+tecnologias: ['Ruby on Rails', 'JavaScript', 'React', 'SQL', 'Docker', 'Vue.js', 'GraphQL'] # opcional
 # Indica si el miembro está buscando trabajo activamente
 disponibleParaTrabajar: false
 # Indica si el miembro está disponible para dar mentoría

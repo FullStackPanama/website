@@ -14,12 +14,12 @@ ciudad: "David"
 imagen: "@memberImages/ricardo-tribaldos.jpg"
 
 # Información Profesional
+profesion: "Full-stack Developer"
 biografia: "Desarrollador Web Full-stack con especial interés en el desarrollo backend y más de una década de experiencia de trabajo con equipos remotos. Experto en desarrollo de software administrativo y procesos financieros, con un enfoque analítico y estratégico. Comprometido con el servicio a la comunidad."
-
-tecnologias: ['Typescript', 'JavaScript', 'PHP', 'Node', 'SQL', 'Docker', 'Linux']
+tecnologias: ['TS/JS', 'PHP', 'Node', 'SQL', 'Docker', 'Linux'] # opcional
 
 # Indica si el miembro está buscando trabajo activamente
-disponibleParaTrabajar: false
+disponibleParaTrabajar: true
 # Indica si el miembro está disponible para dar mentoría
 disponibleParaMentoria: true
 
@@ -33,17 +33,17 @@ redesSociales: {
 
 # Información sobre el empleo actual
 empresa: {
-  nombre: "Central, Inc.",
+  nombre: "BaruStudio",
   cargo: "Ingeniero de software",
   departamento: "Ingeniería",
-  ciudad: "San Francisco",
+  ciudad: "David",
   # Código de país ISO de dos letras
-  pais: "US",
-  url: "https://centralhq.com",
+  pais: "PA",
+  url: "https://barustudio.com",
   # Agregar el logo de la empresa al directorio src/images/companyLogos/nombre-de-la-empresa.jpg
   # Puede usar cualquier formato de imagen (jpg, png, webp, etc.)
   # Evite usar imágenes muy grandes para optimizar el rendimiento
-  logo: "@companyLogos/centralhq.com.png"
+  logo: "@companyLogos/barustudio.com.png"
 }
 
 # Información de membresía en la plataforma

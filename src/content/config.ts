@@ -121,6 +121,7 @@ const membersCollection = defineCollection({
     }).optional(),
 
     // Información Profesional
+    profesion: z.string().optional(),
     biografia: z.string(),
     tecnologias: z.array(z.string()).min(1).optional(),
     disponibleParaTrabajar: z.boolean().default(false),
