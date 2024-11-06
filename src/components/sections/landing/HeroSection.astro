@@ -83,7 +83,7 @@ interface Props {
   <div class="flex w-full items-center justify-center">
     <div class="top-12 overflow-hidden">
       {useBrandLogo ? (
-        <BrandLogo class="size-[400px]"/>
+          <BrandLogo class="size-[360px] w-auto" showText={false}/>
       ) : src && alt ? (
         <Image
           src={src}
