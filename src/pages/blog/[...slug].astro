@@ -45,6 +45,9 @@ const pageTitle: string = `${post.data.title} | ${SITE.title}`;
 const author = post.data.author
   ? await getEntry("members", post.data.author)
   : null;
+const author = post.data.author
+  ? await getEntry("members", post.data.author)
+  : null;
 ---
 
 <MainLayout
@@ -58,9 +61,18 @@ const author = post.data.author
     headline: post.data.title,
     description: post.data.description,
     author: {
+    url: `https://xopa.dev/blog/${post.slug}`,
+    name: pageTitle,
+    headline: post.data.title,
+    description: post.data.description,
+    author: {
       "@type": "Person",
       name: post.data.author,
+      name: post.data.author,
     },
+    datePublished: post.data.pubDate,
+    image: post.data.cardImage,
+    isPartOf: {
     datePublished: post.data.pubDate,
     image: post.data.cardImage,
     isPartOf: {
@@ -68,7 +80,11 @@ const author = post.data.author
       url: "https://xopa.dev",
       name: SITE.title,
       description: SITE.description_short,
+      url: "https://xopa.dev",
+      name: SITE.title,
+      description: SITE.description_short,
     },
+    inLanguage: "es-ES",
     inLanguage: "es-ES",
   }}
 >
@@ -78,6 +94,19 @@ const author = post.data.author
       <div class="mb-6 flex items-center justify-between">
         <div class="flex w-full gap-x-5 sm:items-center sm:gap-x-3">
           <!-- Foto del autor -->
+          {
+            author && (
+              <div class="flex-shrink-0">
+                <Image
+                  src={author.data.imagen}
+                  alt={`Foto de ${author.data.nombre}`}
+                  class="size-12 rounded-full object-cover"
+                  draggable={"false"}
+                  format={"avif"}
+                />
+              </div>
+            )
+          }
           {
             author && (
               <div class="flex-shrink-0">
@@ -107,13 +136,31 @@ const author = post.data.author
                     </div>
                   )
                 }
+                {
+                  author && (
+                    <div class="hs-tooltip inline-block [--placement:bottom] [--trigger:hover]">
+                      <a
+                        href={`/miembros/${author.slug}`}
+                        class="font-bold text-neutral-700 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-neutral-100"
+                      >
+                        {author.data.nombre}
+                      </a>
+                    </div>
+                  )
+                }
                 <!-- Datos de la publicación -->
                 <ul class="text-xs text-neutral-500">
                   <li
                     class="relative inline-block pe-6 before:absolute before:end-2 before:top-1/2 before:size-1 before:-translate-y-1/2 before:rounded-full before:bg-neutral-300 last:pe-0 last-of-type:before:hidden dark:text-neutral-400 dark:before:bg-neutral-600"
                   >
+                  <li
+                    class="relative inline-block pe-6 before:absolute before:end-2 before:top-1/2 before:size-1 before:-translate-y-1/2 before:rounded-full before:bg-neutral-300 last:pe-0 last-of-type:before:hidden dark:text-neutral-400 dark:before:bg-neutral-600"
+                  >
                     {formatDate(post.data.pubDate)}
                   </li>
+                  <li
+                    class="relative inline-block pe-6 before:absolute before:end-2 before:top-1/2 before:size-1 before:-translate-y-1/2 before:rounded-full before:bg-neutral-300 last:pe-0 last-of-type:before:hidden dark:text-neutral-400 dark:before:bg-neutral-600"
+                  >
                   <li
                     class="relative inline-block pe-6 before:absolute before:end-2 before:top-1/2 before:size-1 before:-translate-y-1/2 before:rounded-full before:bg-neutral-300 last:pe-0 last-of-type:before:hidden dark:text-neutral-400 dark:before:bg-neutral-600"
                   >
@@ -141,6 +188,13 @@ const author = post.data.author
             </p>
           )
         }
+        {
+          post.data.excerpt && (
+            <p class="text-pretty text-lg text-neutral-700 dark:text-neutral-300">
+              {post.data.excerpt}
+            </p>
+          )
+        }
         <Image
           class="w-full rounded-xl object-cover"
           src={post.data.cardImage}
@@ -148,7 +202,11 @@ const author = post.data.author
           draggable={"false"}
           format={"avif"}
         />
-        <Content />
+        <div
+          class="prose-a:text-blue-600 prose dark:prose-invert prose-headings:underline prose-h1:text-xl prose-h1:font-bold prose-p:text-justify prose-img:rounded-xl"
+        >
+          <Content />
+        </div>
       </div>
 
       <div
@@ -171,7 +229,7 @@ const author = post.data.author
             post.data.tags?.map((tag: string) => (
               <a
                 href={`/blog/etiqueta/${tag.toLowerCase()}`}
-                class="inline-flex items-center gap-x-1.5 rounded-full bg-neutral-100 px-3 py-1 text-sm font-medium text-neutral-800 transition hover:bg-neutral-200 dark:bg-neutral-700 dark:text-neutral-100 dark:hover:bg-neutral-600"
+                class="bg-blue-100 text-blue-800 hover:bg-blue-200 dark:bg-blue-200 dark:hover:bg-blue-300 inline-flex items-center gap-x-1.5 rounded-full px-3 py-1 text-sm font-medium transition dark:text-white"
               >
                 #{capitalize(tag)}
               </a>
