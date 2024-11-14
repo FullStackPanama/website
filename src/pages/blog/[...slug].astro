@@ -175,7 +175,7 @@ const author = post.data.author
             post.data.tags?.map((tag: string) => (
               <a
                 href={`/blog/etiqueta/${tag.toLowerCase()}`}
-                class="bg-blue-100 text-blue-800 hover:bg-blue-200 dark:bg-blue-200 dark:hover:bg-blue-300 inline-flex items-center gap-x-1.5 rounded-full px-3 py-1 text-sm font-medium transition dark:text-white"
+                class="inline-flex items-center gap-x-1.5 rounded-full bg-neutral-100 px-3 py-1 text-sm font-medium text-neutral-800 transition hover:bg-neutral-200 dark:bg-neutral-700 dark:text-neutral-100 dark:hover:bg-neutral-600"
               >
                 #{capitalize(tag)}
               </a>
