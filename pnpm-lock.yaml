@@ -45,8 +45,8 @@ dependencies:
     specifier: ^4.0.0
     version: 4.0.0
   lucide-astro:
-    specifier: ^0.454.0
-    version: 0.454.0(astro@4.16.12)
+    specifier: ^0.462.0
+    version: 0.462.0(astro@4.16.12)
   preline:
     specifier: ^2.5.1
     version: 2.5.1
@@ -3209,8 +3209,8 @@ packages:
       yallist: 3.1.1
     dev: false
 
-  /lucide-astro@0.454.0(astro@4.16.12):
-    resolution: {integrity: sha512-XVyOyFeHVCzTTamFzn5BCC7wfFKEd4wXA/ybiUDkngZvARi9SoC8HSrt+HKKZ2g91PsatxwuM+14jDm2f2Aq9w==}
+  /lucide-astro@0.462.0(astro@4.16.12):
+    resolution: {integrity: sha512-Y4ovkq3td6kbRPg1dhulA0ejhgl/A8bMPgiEm11jfX0jX1NoLG8+ICj2sOMlWpBiaFQS+6oWUEc/GwOpSy1EHw==}
     peerDependencies:
       astro: '>=2.7.1'
     dependencies:
