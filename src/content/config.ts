@@ -126,6 +126,7 @@ const membersCollection = defineCollection({
     tecnologias: z.array(z.string()).min(1).optional(),
     disponibleParaTrabajar: z.boolean().default(false),
     disponibleParaMentoria: z.boolean().default(false),
+    disponibleParaProyectos: z.boolean().default(false),
 
     // Información de la Empresa
     empresa: z.object({

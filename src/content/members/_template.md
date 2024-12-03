@@ -20,6 +20,8 @@ tecnologias: ['Ruby on Rails', 'JavaScript', 'React', 'SQL', 'Docker', 'Vue.js',
 disponibleParaTrabajar: false
 # Indica si el miembro está disponible para dar mentoría
 disponibleParaMentoria: false
+# Indica si el miembro está disponible para nuevos proyectos
+disponibleParaProyectos: false
 
 # Enlaces a redes sociales y sitio web personal
 redesSociales: {
