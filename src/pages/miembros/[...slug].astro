@@ -4,7 +4,7 @@ import MainLayout from "@/layouts/MainLayout.astro";
 import { Image } from "astro:assets";
 import { SITE } from "@data/constants";
 import { formatDate } from "@utils/utils";
-import { Github, Linkedin, Twitter, Globe, Briefcase, GraduationCap } from "lucide-astro";
+import { Github, Linkedin, Twitter, Globe, Briefcase, GraduationCap, CalendarCheck } from "lucide-astro";
 
 export async function getStaticPaths() {
   const members = await getCollection("members");
@@ -136,6 +136,12 @@ const pageTitle = `${member.data.nombre} | ${SITE.title}`;
               <span class="inline-flex items-center gap-x-1.5 rounded-full bg-neutral-100 px-3 py-1 text-sm font-medium text-neutral-700 dark:bg-neutral-700 dark:text-neutral-300">
                 <Briefcase class="size-4" />
                 Buscando trabajo
+              </span>
+            )}
+            {member.data.disponibleParaProyectos && (
+              <span class="inline-flex items-center gap-x-1.5 rounded-full bg-neutral-100 px-3 py-1 text-sm font-medium text-neutral-700 dark:bg-neutral-700 dark:text-neutral-300">
+                <CalendarCheck class="size-4" />
+                Disponible para proyectos
               </span>
             )}
             {member.data.disponibleParaMentoria && (
