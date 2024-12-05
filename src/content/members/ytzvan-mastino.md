@@ -22,6 +22,7 @@ tecnologias: ['TS/JS', 'Java Spring Boot', 'NodeJS', 'SQL', 'Microsoft Azure', '
 disponibleParaTrabajar: false
 # Indica si el miembro está disponible para dar mentoría
 disponibleParaMentoria: true
+# Indica si el miembro está disponible para nuevos proyectos
 disponibleParaProyectos: true
 
 # Enlaces a redes sociales y sitio web personal

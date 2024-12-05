@@ -15,13 +15,15 @@ imagen: "@memberImages/v4ldevrr4m4.jpg"
 
 # Información Profesional
 profesion: "Full-stack Developer"
-biografia: "Hola, soy Ismael Valderrama, Desarrollador  de software con preferencia por el backend. En 15 años de experiencia he desarrollado: Php, Java, .net, js  pero hago de Python mi pilar hoy por hoy. Soy tambien entusiasta del OpenSouce y de participar en comunidades tech."
-tecnologias: ['Python', 'Sql', 'Docker/Podman', 'Linux', 'Javascript'] # opcional
+biografia: "Hola, soy Ismael Valderrama, Desarrollador  de software con preferencia por el backend. En 15 años de experiencia he desarrollado: PHP, Java, .NET, js pero hago de Python mi pilar hoy por hoy. Soy tambi0én entusiasta del OpenSource y de participar en comunidades tech."
+tecnologias: ['Python', 'SQL', 'Docker/Podman', 'Linux', 'Javascript'] # opcional
 
 # Indica si el miembro está buscando trabajo activamente
 disponibleParaTrabajar: false 
 # Indica si el miembro está disponible para dar mentoría
 disponibleParaMentoria: true
+# Indica si el miembro está disponible para nuevos proyectos
+disponibleParaProyectos: false
 
 # Enlaces a redes sociales y sitio web personal
 redesSociales: {

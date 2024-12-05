@@ -22,6 +22,8 @@ tecnologias: ["TS/JS", "CSS", "React", "Node", "SQL", "Figma"] # opcional
 disponibleParaTrabajar: true
 # Indica si el miembro está disponible para dar mentoría
 disponibleParaMentoria: true
+# Indica si el miembro está disponible para nuevos proyectos
+disponibleParaProyectos: true
 
 # Enlaces a redes sociales y sitio web personal
 redesSociales:
