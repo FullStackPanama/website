@@ -1,6 +1,5 @@
 import { defineConfig } from "astro/config";
 import tailwind from "@astrojs/tailwind";
-import sitemap from "@astrojs/sitemap";
 import compressor from "astro-compressor";
 import starlight from "@astrojs/starlight";
 import starlightImageZoom from "starlight-image-zoom";
@@ -22,14 +21,6 @@ export default defineConfig({
   prefetch: true,
   integrations: [
     tailwind(),
-    sitemap({
-      i18n: {
-        defaultLocale: "es", // All urls that don't contain `xx` (language code) after `https://xopa.dev` will be treated as default locale, i.e. `es`
-        locales: {
-          es: "es", // The `defaultLocale` value must present in `locales` keys
-        },
-      },
-    }),
     starlight({
       title: 'FullStack Panama Docs',
       editLink: {
