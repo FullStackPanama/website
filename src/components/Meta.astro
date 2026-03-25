@@ -24,7 +24,6 @@ const {
 const URL = `${Astro.site}`; // Set the website URL in astro.config.mjs
 const author = SITE.author;
 const canonical = Astro.url.href;
-const basePath = Astro.url.pathname;
 const ogTitle = OG.title;
 const ogDescription = OG.description;
 const socialImageRes = await getImage({
@@ -39,7 +38,7 @@ const languages: { [key: string]: string } = {
   en: "en",
 };
 
-function createHref(lang: string, prefix: string, path: string): string {
+function createHref(prefix: string, path: string): string {
   const hasPrefix = path.startsWith(`/${prefix}/`);
 
   const basePath = hasPrefix ? path : `/${prefix}${path}`;
@@ -54,7 +53,7 @@ const alternateLanguageLinks: string = Object.entries(languages)
     const basePath: string =
       lang === "en" ? fullPath.replace(/^\/fr\//, "/") : fullPath;
 
-    const href: string = createHref(lang, prefix, basePath);
+    const href: string = createHref(prefix, basePath);
 
     return `<link rel="alternate" hreflang="${lang}" href="${href}" />`;
   })
@@ -78,6 +77,7 @@ const appleTouchIcon = await getImage({
      https://developers.google.com/search/docs/advanced/structured-data/intro-structured-data -->{
   structuredData && (
     <script
+      is:inline
       type="application/ld+json"
       set:html={JSON.stringify(structuredData)}
     />
