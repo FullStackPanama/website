@@ -1,6 +1,7 @@
 ---
 import { counts } from "@/data_files/member-stats.json";
 import TestimonialsSection, { type StatProps } from "../testimonials/TestimonialsSection.astro";
+import mariaGonzalezImage from "@images/members/maria-gonzalez.jpg";
 
 // Mantenemos solo el código de Panamá
 const countryEmojis = ["🇵🇦"];
@@ -39,8 +40,7 @@ const stats: StatProps[] = [
         "Gracias a Full Stack Panamá, pude conectar con otros desarrolladores y encontrar mi primer trabajo en tecnología. La comunidad es increíblemente solidaria y siempre dispuesta a ayudar.",
       author: "María González",
       role: "Desarrolladora Full Stack | BaruStudio",
-      avatarSrc:
-        "https://randomuser.me/api/portraits/women/62.jpg",
+      avatarSrc: mariaGonzalezImage,
     },
   ]}
   statistics={stats}
