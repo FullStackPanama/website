@@ -11,6 +11,7 @@ const OG_WIDTH = 1200;
 const OG_HEIGHT = 630;
 const TITLE_MAX_LINES = 4;
 const CHARS_PER_LINE = 24;
+const brandIconPath = path.join(process.cwd(), "src/images/icon.png");
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
@@ -30,6 +31,7 @@ export async function GET({ props }: { props: { post: CollectionEntry<"blog"> } 
   const titleStartY = titleLines.length > 3 ? 340 : 360;
   const footerDate = formatDate(post.data.pubDate);
   const footerAuthor = author?.data.nombre ?? SITE.author;
+  const brandIconUri = await getBrandIconUri();
 
   const background = await sharp(backgroundPath)
     .resize(OG_WIDTH, OG_HEIGHT, {
@@ -57,8 +59,9 @@ export async function GET({ props }: { props: { post: CollectionEntry<"blog"> } 
       </defs>
       <rect width="${OG_WIDTH}" height="${OG_HEIGHT}" fill="url(#topFade)" />
       <rect width="${OG_WIDTH}" height="${OG_HEIGHT}" fill="url(#bottomFade)" />
-      <rect x="56" y="52" width="342" height="44" rx="22" fill="rgba(15, 23, 42, 0.64)" />
-      <text x="78" y="81" fill="#F8FAFC" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">Blog de Full Stack Panamá</text>
+      <rect x="56" y="34" width="456" height="92" rx="28" fill="rgba(2, 6, 23, 0.84)" />
+      <image x="78" y="40" width="80" height="80" preserveAspectRatio="xMidYMid meet" href="${brandIconUri}" />
+      <text x="176" y="92" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700">FullStack Panamá</text>
       <circle cx="1118" cy="84" r="18" fill="#FACC15" />
       <text x="78" y="${titleStartY}" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="${titleFontSize}" font-weight="700">
         ${titleLines
@@ -157,4 +160,9 @@ function escapeXml(value: string) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&apos;");
+}
+
+async function getBrandIconUri() {
+  const png = await fs.readFile(brandIconPath);
+  return `data:image/png;base64,${png.toString("base64")}`;
 }
