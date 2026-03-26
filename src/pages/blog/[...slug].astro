@@ -41,7 +41,7 @@ const relatedPosts: CollectionEntry<"blog">[] = blogPosts
 
 const pageTitle: string = `${post.data.title} | ${SITE.title}`;
 const pageDescription = post.data.excerpt ?? post.data.description;
-const socialImage = `/og/blog/${post.slug}.png`;
+const socialImage = `/og/blog/${post.slug}.webp`;
 
 // Obtener la información del autor desde membersCollection
 const author = post.data.author
@@ -56,6 +56,7 @@ const author = post.data.author
     title: post.data.title,
     description: pageDescription,
     image: socialImage,
+    imageType: "image/webp",
     url: `${SITE.url}/blog/${post.slug}`,
     type: "article",
   }}

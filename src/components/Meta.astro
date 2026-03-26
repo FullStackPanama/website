@@ -37,6 +37,7 @@ const socialImage = social?.image
   ? new globalThis.URL(social.image, Astro.site ?? Astro.url.origin).toString()
   : Astro.url.origin + socialImageRes.src; // Get the full URL of the image (https://stackoverflow.com/a/9858694)
 const ogType = social?.type ?? OG.type;
+const socialImageType = social?.imageType ?? "image/png";
 
 const languages: { [key: string]: string } = {
   es: "",
@@ -110,7 +111,7 @@ const appleTouchIcon = await getImage({
 <meta property="og:image" content={socialImage} />
 <meta content="1200" property="og:image:width" />
 <meta content="630" property="og:image:height" />
-<meta content="image/png" property="og:image:type" />
+<meta content={socialImageType} property="og:image:type" />
 
 <!-- Twitter Meta Tags -->
 <meta name="twitter:card" content="summary_large_image" />

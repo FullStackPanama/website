@@ -33,18 +33,6 @@ export async function GET({ props }: { props: { post: CollectionEntry<"blog"> } 
   const footerAuthor = author?.data.nombre ?? SITE.author;
   const brandIconUri = await getBrandIconUri();
 
-  const background = await sharp(backgroundPath)
-    .resize(OG_WIDTH, OG_HEIGHT, {
-      fit: "cover",
-      position: "centre",
-    })
-    .modulate({
-      brightness: 0.82,
-      saturation: 1.05,
-    })
-    .png()
-    .toBuffer();
-
   const overlay = Buffer.from(`
     <svg width="${OG_WIDTH}" height="${OG_HEIGHT}" viewBox="0 0 ${OG_WIDTH} ${OG_HEIGHT}" fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
@@ -77,14 +65,24 @@ export async function GET({ props }: { props: { post: CollectionEntry<"blog"> } 
     </svg>
   `);
 
-  const image = await sharp(background)
+  const image = await sharp(backgroundPath)
+    .resize(OG_WIDTH, OG_HEIGHT, {
+      fit: "cover",
+      position: "centre",
+    })
+    .modulate({
+      brightness: 0.82,
+      saturation: 1.05,
+    })
     .composite([{ input: overlay }])
-    .png()
+    .webp({
+      quality: 84,
+    })
     .toBuffer();
 
   return new Response(new Uint8Array(image), {
     headers: {
-      "Content-Type": "image/png",
+      "Content-Type": "image/webp",
       "Cache-Control": "public, max-age=31536000, immutable",
     },
   });
