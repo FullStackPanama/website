@@ -40,6 +40,8 @@ const relatedPosts: CollectionEntry<"blog">[] = blogPosts
   .slice(0, 2);
 
 const pageTitle: string = `${post.data.title} | ${SITE.title}`;
+const pageDescription = post.data.excerpt ?? post.data.description;
+const socialImage = `/og/blog/${post.slug}.png`;
 
 // Obtener la información del autor desde membersCollection
 const author = post.data.author
@@ -49,6 +51,14 @@ const author = post.data.author
 
 <MainLayout
   title={pageTitle}
+  meta={pageDescription}
+  social={{
+    title: post.data.title,
+    description: pageDescription,
+    image: socialImage,
+    url: `${SITE.url}/blog/${post.slug}`,
+    type: "article",
+  }}
   structuredData={{
     "@context": "https://schema.org",
     "@type": "BlogPosting",
