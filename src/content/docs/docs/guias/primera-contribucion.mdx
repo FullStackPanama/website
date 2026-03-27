@@ -95,6 +95,18 @@ Ve a tu repositorio forkeado en GitHub y presiona la tecla `.` para convertir Gi
      ![Editar archivo de plantilla de miembro](@/images/docs/guides/make-your-first-contribution-upload-edit-template.png)
 </Steps>
 
+<Aside title="CV opcional" type="tip">
+  Si además quieres publicar tu CV en `/miembros/<tu-slug>/cv`, agrega el bloque opcional `cv:` dentro del mismo archivo de miembro.
+
+  No necesitas crear un segundo archivo. Tu perfil y tu CV ahora salen de la misma fuente de datos.
+</Aside>
+
+<Steps>
+  1. Completa primero tu perfil básico.
+  2. Si quieres publicar tu CV, agrega los campos `email`, `phone`, `address` y las secciones opcionales que necesites dentro de `cv:`.
+  3. Si no agregas `cv:`, tu perfil seguirá funcionando normalmente y no se publicará una página de CV.
+</Steps>
+
 ### 4. Haz Commit de tus Cambios
 
 Después de agregar tu foto y crear tu archivo de perfil, haz commit de los cambios a tu repositorio siguiendo estos pasos:
@@ -157,7 +169,6 @@ Para tu referencia, aquí está la estructura de archivos del proyecto:
       - **juan-perez.md** ESTE ES TU ARCHIVO DE PERFIL
       - ...
     - ...
-  - data_files/
   - env.d.ts
   - images
     - members
