@@ -5,9 +5,9 @@ import { Image } from "astro:assets";
 import { SITE } from "@data/constants";
 import { formatDate } from "@utils/utils";
 import { hasMemberCv } from "@utils/memberCv";
-import Code from "@lucide/astro/icons/code";
-import Network from "@lucide/astro/icons/network";
-import X from "@lucide/astro/icons/x";
+import GitHubIcon from "@/components/icons/GitHubIcon.astro";
+import LinkedInIcon from "@/components/icons/LinkedInIcon.astro";
+import XIcon from "@/components/icons/XIcon.astro";
 import Globe from "@lucide/astro/icons/globe";
 import Briefcase from "@lucide/astro/icons/briefcase";
 import GraduationCap from "@lucide/astro/icons/graduation-cap";
@@ -96,7 +96,7 @@ const socialImage = `/og/miembros/${member.slug}.webp`;
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Code class="size-5" />
+                  <GitHubIcon class="size-5" />
                 </a>
               )}
               {member.data.redesSociales.linkedIn && (
@@ -106,7 +106,7 @@ const socialImage = `/og/miembros/${member.slug}.webp`;
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Network class="size-5" />
+                  <LinkedInIcon class="size-5" />
                 </a>
               )}
               {member.data.redesSociales.twitter && (
@@ -116,7 +116,7 @@ const socialImage = `/og/miembros/${member.slug}.webp`;
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <X class="size-5" />
+                  <XIcon class="size-5" />
                 </a>
               )}
               {member.data.redesSociales.website && (
