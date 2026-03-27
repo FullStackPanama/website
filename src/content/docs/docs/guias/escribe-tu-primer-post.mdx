@@ -1,0 +1,130 @@
+---
+title: 'Escribe tu primer post para el blog'
+description: 'Aprende cómo crear y publicar un artículo en el blog de Full Stack Panamá.'
+sidebar:
+  label: Escribe Tu Primer Post
+  order: 4
+---
+import {
+  Aside,
+  FileTree,
+  LinkCard,
+  Steps,
+} from "@astrojs/starlight/components";
+
+¿Quieres compartir una herramienta, una experiencia técnica, una guía práctica o una opinión bien argumentada? Esta guía te enseña cómo crear un post para el blog de Full Stack Panamá.
+
+## Antes de empezar
+
+<Aside title="Requisito importante" type="note">
+  El campo `author` del post debe coincidir con el slug de un miembro existente. Si todavía no has creado tu perfil, hazlo primero.
+</Aside>
+
+<LinkCard title="Crear mi perfil de miembro" href="/docs/guias/primera-contribucion" />
+
+## Guía Paso a Paso
+
+### 1. Prepara la imagen destacada
+
+<Steps>
+  1. Elige una imagen para el encabezado y la tarjeta del post.
+  2. Nombra el archivo usando el slug del post, por ejemplo `mi-primer-post.jpg`.
+  3. Sube la imagen a `<raíz-del-proyecto>/src/images/blog/`.
+</Steps>
+
+<Aside title="Recomendación" type="tip">
+  Usa imágenes ligeras y claras. El sistema también genera la imagen Open Graph del post usando esta imagen como base.
+</Aside>
+
+### 2. Crea tu archivo Markdown
+
+<Steps>
+  1. Descarga la plantilla desde [aquí](https://xopa.dev/new-post-template.md) o cópiala desde `<raíz-del-proyecto>/public/new-post-template.md`.
+  2. Guarda el archivo en `<raíz-del-proyecto>/src/content/blog/`.
+  3. Renómbralo usando el slug del post, por ejemplo `mi-primer-post.md`.
+  4. Completa el frontmatter y reemplaza todos los valores de ejemplo.
+</Steps>
+
+## Campos del frontmatter
+
+- `title`: título del artículo.
+- `description`: descripción corta para SEO y vistas previas.
+- `excerpt`: resumen más largo mostrado en listados y al inicio del post.
+- `author`: slug del miembro autor, por ejemplo `ricardo-tribaldos`.
+- `pubDate`: fecha de publicación en formato `YYYY-MM-DD`.
+- `cardImage`: ruta de la imagen destacada, por ejemplo `@/images/blog/mi-primer-post.jpg`.
+- `cardImageAlt`: texto alternativo de la imagen.
+- `readTime`: tiempo estimado de lectura en minutos.
+- `category`: debe contener exactamente una categoría, por ejemplo `["Backend"]`.
+- `tags`: etiquetas para navegación y filtrado.
+
+<Aside title="Errores comunes" type="caution">
+  - No uses un `author` que no exista en `src/content/members/`.
+  - `category` debe tener exactamente un solo valor.
+  - La ruta de `cardImage` debe apuntar a un archivo real dentro de `src/images/blog/`.
+</Aside>
+
+### 3. Escribe el contenido del artículo
+
+Puedes usar Markdown normal:
+
+- encabezados `##`
+- listas
+- enlaces
+- bloques de código
+- citas
+- negritas e itálicas
+
+Ejemplo:
+
+````md
+## ¿Por qué vale la pena?
+
+Este enfoque mejora el rendimiento y reduce complejidad.
+
+```ts
+export function saludar(nombre: string) {
+  return `Hola, ${nombre}`;
+}
+```
+````
+
+### 4. Haz commit y abre tu Pull Request
+
+<Steps>
+  1. Revisa que hayas agregado tanto el archivo del post como la imagen.
+  2. Haz commit de tus cambios en tu fork.
+  3. Abre un Pull Request contra el repositorio principal.
+</Steps>
+
+<Aside title="Qué revisar antes de enviar" type="tip">
+  Confirma que el título esté bien escrito, que la imagen exista, que el slug del autor sea correcto y que el artículo tenga una estructura clara con subtítulos.
+</Aside>
+
+## Referencia de estructura de archivos
+
+<FileTree>
+- public
+  - **new-post-template.md** ESTA ES LA PLANTILLA DEL POST
+- src
+  - content
+    - blog
+      - **mi-primer-post.md** ESTE ES TU POST
+      - ...
+    - members
+      - **tu-perfil.md** TU PERFIL DE MIEMBRO
+  - images
+    - blog
+      - **mi-primer-post.jpg** ESTA ES TU IMAGEN DESTACADA
+      - ...
+</FileTree>
+
+## Qué pasa después
+
+Cuando tu post se publique:
+
+- aparecerá en `/blog`
+- tendrá su propia página
+- generará su propia imagen Open Graph automáticamente
+
+Si necesitas ayuda con el tono, la estructura o el frontmatter, pide apoyo en la comunidad antes de enviar el PR.
