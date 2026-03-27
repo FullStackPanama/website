@@ -66,8 +66,8 @@ importers:
         specifier: ^0.1.5
         version: 0.1.5
       starlight-image-zoom:
-        specifier: ^0.2.0
-        version: 0.2.0(@astrojs/starlight@0.29.3(astro@4.16.19(@types/node@24.12.0)(rollup@4.60.0)(typescript@5.9.3)))
+        specifier: ^0.9.0
+        version: 0.9.0(@astrojs/starlight@0.29.3(astro@4.16.19(@types/node@24.12.0)(rollup@4.60.0)(typescript@5.9.3)))
       tailwindcss:
         specifier: ^3.4.14
         version: 3.4.19(yaml@2.8.3)
@@ -2470,11 +2470,11 @@ packages:
   sprintf-js@1.0.3:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
 
-  starlight-image-zoom@0.2.0:
-    resolution: {integrity: sha512-wtNO87kGZ8XPolAEFkYebSg9MkmoynVnuqbgW3M/JfDSYhbz77IOR5nKelEPjY6Usz1csLLzAm+BSWlJ9I/agw==}
+  starlight-image-zoom@0.9.0:
+    resolution: {integrity: sha512-XG87T80g5hsT6dvtNk9OKx0gD+M8lsloVTApQYnxdc3JD8lQBfu2kCsrwkyrwXZRtV7JRyd0PDHwx1UFmGmI1g==}
     engines: {node: '>=18'}
     peerDependencies:
-      '@astrojs/starlight': '>=0.20.0'
+      '@astrojs/starlight': '>=0.22.0'
 
   stdin-discarder@0.2.2:
     resolution: {integrity: sha512-UhDfHmA92YAlNnCfhmq0VeNL5bDbiZGg7sZ2IvPsXubGkiNa9EC+tUTsjBRsYUAz87btI6/1wf4XoVvQ3uRnmQ==}
@@ -4459,7 +4459,7 @@ snapshots:
       mdast-util-to-hast: 13.2.1
       parse5: 7.3.0
       unist-util-position: 5.0.0
-      unist-util-visit: 5.0.0
+      unist-util-visit: 5.1.0
       vfile: 6.0.3
       web-namespaces: 2.0.1
       zwitch: 2.0.4
@@ -5781,7 +5781,7 @@ snapshots:
 
   sprintf-js@1.0.3: {}
 
-  starlight-image-zoom@0.2.0(@astrojs/starlight@0.29.3(astro@4.16.19(@types/node@24.12.0)(rollup@4.60.0)(typescript@5.9.3))):
+  starlight-image-zoom@0.9.0(@astrojs/starlight@0.29.3(astro@4.16.19(@types/node@24.12.0)(rollup@4.60.0)(typescript@5.9.3))):
     dependencies:
       '@astrojs/starlight': 0.29.3(astro@4.16.19(@types/node@24.12.0)(rollup@4.60.0)(typescript@5.9.3))
       rehype-raw: 7.0.0
@@ -5992,7 +5992,7 @@ snapshots:
     dependencies:
       '@types/unist': 3.0.3
       unist-util-is: 6.0.1
-      unist-util-visit-parents: 6.0.1
+      unist-util-visit-parents: 6.0.2
 
   unist-util-visit@5.1.0:
     dependencies:
