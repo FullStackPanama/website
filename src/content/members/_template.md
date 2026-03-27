@@ -52,4 +52,10 @@ fechaIngreso: 2024-01-01
 rol: "miembro"
 # Indica si el perfil está activo en la plataforma
 activo: true
+
+# CV opcional
+# Si quieres publicar tu CV en /miembros/<tu-slug>/cv
+# agrega el bloque `cv:` en este mismo archivo.
+# Puedes incluir datos de contacto, experiencia, educación, proyectos,
+# certificaciones y skills. Si `cv` no existe, no se publica página de CV.
 ---

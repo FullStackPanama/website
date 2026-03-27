@@ -20,6 +20,7 @@
     "astro": "^4.16.12",
     "astro-compressor": "^0.4.1",
     "country-code-emoji": "^2.3.0",
+    "cv-astro": "^1.2.0",
     "globby": "^14.0.2",
     "gsap": "^3.12.5",
     "html-minifier": "^4.0.0",

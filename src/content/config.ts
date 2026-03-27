@@ -99,6 +99,91 @@ const insightsCollection = defineCollection({
   }),
 });
 
+const cvOptionalLinkSchema = z.object({
+  name: z.string(),
+  url: z.string().optional(),
+});
+
+const cvTaskSchema = z.object({
+  description: z.string(),
+  output: z.string().optional(),
+});
+
+const cvProjectSchema: z.ZodTypeAny = z.object({
+  name: z.string(),
+  url: z.string().optional(),
+  description: z.string(),
+  output: z.string().optional(),
+  technologies: z.array(cvOptionalLinkSchema),
+});
+
+const cvOrganizationSchema = z.object({
+  name: z.string(),
+  city: z.string().optional(),
+  country: z.string(),
+  url: z.string().optional(),
+  remarks: z.string().optional(),
+});
+
+const cvPositionSchema = z.object({
+  title: z.string(),
+  startDate: z.string(),
+  endDate: z.string().optional(),
+  description: z.string(),
+  tasks: z.array(cvTaskSchema),
+  projects: z.array(cvProjectSchema).optional(),
+});
+
+const cvExperienceSchema = z.object({
+  company: cvOrganizationSchema,
+  current: z.boolean().optional(),
+  positions: z.array(cvPositionSchema),
+});
+
+const cvVolunteerPositionSchema = z.object({
+  title: z.string(),
+  startDate: z.string(),
+  endDate: z.string().optional(),
+});
+
+const cvVolunteerSchema = z.object({
+  organization: cvOrganizationSchema,
+  description: z.string().optional(),
+  positions: z.array(cvVolunteerPositionSchema),
+  tasks: z.array(z.string()),
+  isActiveMember: z.boolean(),
+  startDate: z.string().optional(),
+  endDate: z.string().optional(),
+});
+
+const cvEducationSchema = z.object({
+  institution: cvOrganizationSchema,
+  degree: z.string(),
+  major: z.string().optional(),
+  startDate: z.string().optional(),
+  endDate: z.string().optional(),
+  inProgress: z.boolean().optional(),
+  projects: z.array(cvProjectSchema).optional(),
+  achievements: z.array(z.string()).optional(),
+});
+
+const cvCertificationSchema = z.object({
+  authority: z.string(),
+  name: z.string(),
+  code: z.string().optional(),
+  description: z.string().optional(),
+  license: z.string().optional(),
+  issueDate: z.string(),
+  expirationDate: z.string().optional(),
+  url: z.string().optional(),
+  image: z.string().optional(),
+});
+
+const cvSkillSchema = cvOptionalLinkSchema.extend({
+  proficiency: z.number().min(1).max(5),
+  category: z.string().optional(),
+});
+
 // Red Profesional de Programadores
 const membersCollection = defineCollection({
   type: "content",
@@ -151,6 +236,25 @@ const membersCollection = defineCollection({
     fechaIngreso: z.date().default(new Date()),
     rol: z.enum(['miembro', 'administrador']).default('miembro'),
     activo: z.boolean().default(true),
+
+    // Información opcional para CV
+    cv: z.object({
+      email: z.string().email(),
+      phone: z.string(),
+      address: z.string(),
+      timezone: z.string().optional(),
+      addressUrl: z.string().optional(),
+      summary: z.string().optional(),
+      experience: z.array(cvExperienceSchema).optional(),
+      volunteering: z.array(cvVolunteerSchema).optional(),
+      education: z.array(cvEducationSchema).optional(),
+      certifications: z.array(cvCertificationSchema).optional(),
+      projects: z.array(cvProjectSchema).optional(),
+      skills: z.array(cvSkillSchema).optional(),
+      config: z.object({
+        categoryOrder: z.array(z.string()).optional(),
+      }).optional(),
+    }).optional(),
   }),
 });
 
