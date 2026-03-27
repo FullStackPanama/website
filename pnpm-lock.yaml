@@ -32,6 +32,9 @@ importers:
       '@astrojs/vercel':
         specifier: ^7.8.2
         version: 7.8.2(astro@4.16.19(@types/node@24.12.0)(rollup@4.60.0)(typescript@5.9.3))(rollup@4.60.0)
+      '@lucide/astro':
+        specifier: ^1.7.0
+        version: 1.7.0(astro@4.16.19(@types/node@24.12.0)(rollup@4.60.0)(typescript@5.9.3))
       astro:
         specifier: ^4.16.12
         version: 4.16.19(@types/node@24.12.0)(rollup@4.60.0)(typescript@5.9.3)
@@ -54,8 +57,8 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0
       lucide-astro:
-        specifier: ^0.454.0
-        version: 0.454.0(astro@4.16.19(@types/node@24.12.0)(rollup@4.60.0)(typescript@5.9.3))
+        specifier: npm:@lucide/astro@^1.7.0
+        version: '@lucide/astro@1.7.0(astro@4.16.19(@types/node@24.12.0)(rollup@4.60.0)(typescript@5.9.3))'
       preline:
         specifier: ^2.5.1
         version: 2.7.0
@@ -584,6 +587,11 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
+
+  '@lucide/astro@1.7.0':
+    resolution: {integrity: sha512-57+iM12BllbSrt2o5bW34pHyt+nnnSMTucS6HzzQls+0g3lGMyRwKjrbSo0IjCzLWhZaLQLYa05n3E0jNpPdNA==}
+    peerDependencies:
+      astro: ^4 || ^5 || ^6
 
   '@mapbox/node-pre-gyp@2.0.3':
     resolution: {integrity: sha512-uwPAhccfFJlsfCxMYTwOdVfOz3xqyj8xYL3zJj8f0pb30tLohnnFPhLuqp4/qoEz8sNxe4SESZedcBojRefIzg==}
@@ -1748,12 +1756,6 @@ packages:
 
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
-
-  lucide-astro@0.454.0:
-    resolution: {integrity: sha512-XVyOyFeHVCzTTamFzn5BCC7wfFKEd4wXA/ybiUDkngZvARi9SoC8HSrt+HKKZ2g91PsatxwuM+14jDm2f2Aq9w==}
-    deprecated: 'Deprecated: Use `@lucide/astro`'
-    peerDependencies:
-      astro: '>=2.7.1'
 
   magic-string@0.30.21:
     resolution: {integrity: sha512-vd2F4YUyEXKGcLHoq+TEyCjxueSeHnFxyyjNp80yg0XV4vUhnDer/lvvlqM/arB5bXQN5K2/3oinyCRyx8T2CQ==}
@@ -3435,6 +3437,10 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
+  '@lucide/astro@1.7.0(astro@4.16.19(@types/node@24.12.0)(rollup@4.60.0)(typescript@5.9.3))':
+    dependencies:
+      astro: 4.16.19(@types/node@24.12.0)(rollup@4.60.0)(typescript@5.9.3)
+
   '@mapbox/node-pre-gyp@2.0.3':
     dependencies:
       consola: 3.4.2
@@ -4723,10 +4729,6 @@ snapshots:
   lru-cache@5.1.1:
     dependencies:
       yallist: 3.1.1
-
-  lucide-astro@0.454.0(astro@4.16.19(@types/node@24.12.0)(rollup@4.60.0)(typescript@5.9.3)):
-    dependencies:
-      astro: 4.16.19(@types/node@24.12.0)(rollup@4.60.0)(typescript@5.9.3)
 
   magic-string@0.30.21:
     dependencies:

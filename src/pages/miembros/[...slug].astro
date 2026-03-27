@@ -5,7 +5,14 @@ import { Image } from "astro:assets";
 import { SITE } from "@data/constants";
 import { formatDate } from "@utils/utils";
 import { hasMemberCv } from "@utils/memberCv";
-import { Github, Linkedin, Twitter, Globe, Briefcase, GraduationCap, CalendarCheck, FileText } from "lucide-astro";
+import Code from "@lucide/astro/icons/code";
+import Network from "@lucide/astro/icons/network";
+import X from "@lucide/astro/icons/x";
+import Globe from "@lucide/astro/icons/globe";
+import Briefcase from "@lucide/astro/icons/briefcase";
+import GraduationCap from "@lucide/astro/icons/graduation-cap";
+import CalendarCheck from "@lucide/astro/icons/calendar-check";
+import FileText from "@lucide/astro/icons/file-text";
 
 export async function getStaticPaths() {
   const members = await getCollection("members");
@@ -89,7 +96,7 @@ const socialImage = `/og/miembros/${member.slug}.webp`;
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Github class="size-5" />
+                  <Code class="size-5" />
                 </a>
               )}
               {member.data.redesSociales.linkedIn && (
@@ -99,7 +106,7 @@ const socialImage = `/og/miembros/${member.slug}.webp`;
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Linkedin class="size-5" />
+                  <Network class="size-5" />
                 </a>
               )}
               {member.data.redesSociales.twitter && (
@@ -109,7 +116,7 @@ const socialImage = `/og/miembros/${member.slug}.webp`;
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Twitter class="size-5" />
+                  <X class="size-5" />
                 </a>
               )}
               {member.data.redesSociales.website && (
