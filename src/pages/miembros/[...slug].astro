@@ -4,7 +4,8 @@ import MainLayout from "@/layouts/MainLayout.astro";
 import { Image } from "astro:assets";
 import { SITE } from "@data/constants";
 import { formatDate } from "@utils/utils";
-import { Github, Linkedin, Twitter, Globe, Briefcase, GraduationCap, CalendarCheck } from "lucide-astro";
+import { hasMemberCv } from "@utils/memberCv";
+import { Github, Linkedin, Twitter, Globe, Briefcase, GraduationCap, CalendarCheck, FileText } from "lucide-astro";
 
 export async function getStaticPaths() {
   const members = await getCollection("members");
@@ -141,6 +142,18 @@ const socialImage = `/og/miembros/${member.slug}.webp`;
               </p>
             )}
           </div>
+
+          {hasMemberCv(member) && (
+            <div class="mb-6">
+              <a
+                href={`/miembros/${member.slug}/cv`}
+                class="inline-flex items-center gap-x-2 rounded-lg bg-neutral-900 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-neutral-700 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200"
+              >
+                <FileText class="size-4" />
+                Ver CV
+              </a>
+            </div>
+          )}
 
           <div class="mb-6 flex flex-wrap gap-2">
             {member.data.disponibleParaTrabajar && (

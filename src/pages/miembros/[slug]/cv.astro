@@ -1,0 +1,114 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import CV from "cv-astro";
+import Meta from "@components/Meta.astro";
+import { SITE } from "@data/constants";
+import { getMemberCv, hasMemberCv } from "@utils/memberCv";
+
+export async function getStaticPaths() {
+  const members = await getCollection("members");
+
+  return members
+    .filter((member) => hasMemberCv(member))
+    .flatMap((member) => {
+      const cvData = getMemberCv(member);
+
+      if (!cvData) {
+        return [];
+      }
+
+      return [{
+      params: { slug: member.slug },
+      props: {
+        member,
+        cvData,
+      },
+      }];
+    });
+}
+
+type Props = {
+  member: CollectionEntry<"members">;
+  cvData: NonNullable<ReturnType<typeof getMemberCv>>;
+};
+
+const { member, cvData } = Astro.props;
+const pageTitle = `CV de ${member.data.nombre} | ${SITE.title}`;
+const pageDescription = `Curriculum vitae de ${member.data.nombre}. ${member.data.biografia}`;
+const socialImage = `/og/miembros/${member.slug}.webp`;
+---
+
+<html lang="es" class="scrollbar-hide">
+  <head>
+    <Meta
+      meta={pageDescription}
+      social={{
+        title: `CV de ${member.data.nombre}`,
+        description: pageDescription,
+        image: socialImage,
+        imageType: "image/webp",
+        url: `${SITE.url}/miembros/${member.slug}/cv`,
+        type: "profile",
+      }}
+    />
+    <title>{pageTitle}</title>
+  </head>
+  <body class="bg-neutral-100 text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100 print:bg-white print:text-black">
+    <div class="mx-auto max-w-screen-lg px-4 py-6 print:hidden sm:px-6">
+      <div class="flex items-center justify-between gap-4 rounded-2xl border border-neutral-200 bg-white px-4 py-3 shadow-sm dark:border-neutral-800 dark:bg-neutral-950">
+        <div>
+          <p class="text-sm font-medium text-neutral-500 dark:text-neutral-400">Miembros</p>
+          <h1 class="text-lg font-semibold text-neutral-900 dark:text-neutral-100">{member.data.nombre} · CV</h1>
+        </div>
+        <div class="flex items-center gap-3">
+          <a
+            href={`/miembros/${member.slug}`}
+            class="inline-flex items-center rounded-lg border border-neutral-200 px-3 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50 dark:border-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-900"
+          >
+            Volver al perfil
+          </a>
+          <button
+            type="button"
+            onclick="window.print()"
+            class="inline-flex items-center rounded-lg bg-neutral-900 px-3 py-2 text-sm font-medium text-white transition hover:bg-neutral-700 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200"
+          >
+            Imprimir / PDF
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <CV {...cvData} />
+
+    <style>
+      :global(body > main.container) {
+        padding-top: 2.5rem;
+        padding-bottom: 3rem;
+      }
+
+      :global(body > main.container > section) {
+        padding: 2.25rem;
+        border-radius: 1.5rem;
+        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      }
+
+      @media (min-width: 768px) {
+        :global(body > main.container > section) {
+          padding: 3rem;
+        }
+      }
+
+      @media print {
+        :global(body > main.container) {
+          padding: 0 !important;
+        }
+
+        :global(body > main.container > section) {
+          padding: 0 !important;
+          border-radius: 0 !important;
+          box-shadow: none !important;
+        }
+      }
+    </style>
+  </body>
+</html>
