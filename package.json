@@ -26,7 +26,7 @@
     "gsap": "^3.12.5",
     "html-minifier": "^4.0.0",
     "lucide-astro": "npm:@lucide/astro@^1.7.0",
-    "preline": "^2.5.1",
+    "preline": "^4.1.3",
     "sharp": "^0.33.5",
     "sharp-ico": "^0.1.5",
     "starlight-image-zoom": "^0.9.0",
